@@ -43,6 +43,7 @@ fun runMenu() {
             5 -> addBook()
             6 -> updateBook()
             7 -> deleteBook()
+            8 -> listAuthorsBooks()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -167,6 +168,16 @@ fun updateBook(){
         } else {
             println("Invalid Book Id")
         }
+    }
+}
+
+fun listAuthorsBooks() {
+    val author: Author? = askUserToChooseAuthor()
+        if (author != null){
+            print(author.listBooks())
+        }
+    else {
+        println("No books here, add some!!")
     }
 }
 fun exitApp(){
