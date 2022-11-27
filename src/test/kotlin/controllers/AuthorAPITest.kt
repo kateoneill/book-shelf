@@ -43,11 +43,11 @@ class AuthorAPITest {
 
     @AfterEach
     fun tearDown() {
-        KazuoIshiguro = null
+        kazuoIshiguro = null
         SallyRooney = null
         TaylorJenkinsReid = null
         StephenKing = null
-        AkwaekeEmezi = null
+        akwaekeEmezi = null
         ColsonWhitehead = null
         emptyAuthors = null
     }
@@ -85,7 +85,7 @@ class AuthorAPITest {
         @Test
         fun `updating a note that exists returns true and updates`() {
             // check note 5 exists and check the contents
-            assertEquals(AkwaekeEmezi, populatedAuthors!!.findAuthor(4))
+            assertEquals(akwaekeEmezi, populatedAuthors!!.findAuthor(4))
             assertEquals("aemeziauthor@email.com", populatedAuthors!!.findAuthor(4)!!.email)
             assertEquals("Simon & Schuster", populatedAuthors!!.findAuthor(4)!!.publisher)
             assertEquals("sallyrooney.com", populatedAuthors!!.findAuthor(4)!!.website)
@@ -98,23 +98,44 @@ class AuthorAPITest {
         }
     }
 
+//    @Nested
+//    inner class DeleteAuthors {
+//
+//        @Test
+//        fun `deleting a Note that does not exist, returns null`() {
+//            assertNull(emptyAuthors!!.delete(0))
+//            assertNull(populatedAuthors!!.delete(-1))
+//            assertNull(populatedAuthors!!.delete(6))
+//        }
+//
+//        @Test
+//        fun `deleting a note that exists delete and returns deleted object`() {
+//            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+//            assertEquals(akwaekeEmezi, populatedAuthors!!.delete(4))
+//            assertEquals(5, populatedAuthors!!.numberOfAuthors())
+//            assertEquals(kazuoIshiguro, populatedAuthors!!.delete(0))
+//            assertEquals(4, populatedAuthors!!.numberOfAuthors())
+//        }
+//    }
+
     @Nested
-    inner class DeleteAuthors {
+    inner class ListNotes {
 
         @Test
-        fun `deleting a Note that does not exist, returns null`() {
-            assertNull(emptyAuthors!!.delete(0))
-            assertNull(populatedAuthors!!.delete(-1))
-            assertNull(populatedAuthors!!.delete(6))
+        fun `listAllNotes returns No Notes Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.listAllAuthors().lowercase().contains("no notes"))
         }
 
         @Test
-        fun `deleting a note that exists delete and returns deleted object`() {
+        fun `listAllNotes returns Notes when ArrayList has notes stored`() {
             assertEquals(6, populatedAuthors!!.numberOfAuthors())
-            assertEquals(akwaekeEmezi, populatedAuthors!!.delete(4))
-            assertEquals(5, populatedAuthors!!.numberOfAuthors())
-            assertEquals(kazuoIshiguro, populatedAuthors!!.delete(0))
-            assertEquals(4, populatedAuthors!!.numberOfAuthors())
+            val authorString = populatedAuthors!!.listAllAuthors().lowercase()
+            assertTrue(authorString.contains("akwaeke"))
+            assertTrue(authorString.contains("kazuo"))
+            assertTrue(authorString.contains("brit"))
+            assertTrue(authorString.contains("colson"))
+            assertTrue(authorString.contains("sally"))
         }
     }
 }
