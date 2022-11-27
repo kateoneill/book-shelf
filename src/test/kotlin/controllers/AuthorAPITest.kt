@@ -10,33 +10,34 @@ import java.io.File
 import javax.swing.plaf.synth.SynthTextAreaUI
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class AuthorAPITest {
-    private var KazuoIshiguro: Author? = null
+    private var kazuoIshiguro: Author? = null
     private var SallyRooney: Author? = null
     private var TaylorJenkinsReid: Author? = null
     private var StephenKing: Author? = null
-    private var AkwaekeEmezi: Author? = null
+    private var akwaekeEmezi: Author? = null
     private var ColsonWhitehead: Author? = null
     private var populatedAuthors: AuthorAPI? = AuthorAPI(XMLSerializer(File("notes.xml")))
     private var emptyAuthors: AuthorAPI? = AuthorAPI(XMLSerializer(File("notes.xml")))
 
     @BeforeEach
     fun setup() {
-        KazuoIshiguro = Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA FRSL is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "kazuoishiguro.com")
+        kazuoIshiguro = Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA FRSL is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "kazuoishiguro.com")
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "sally.com")
         TaylorJenkinsReid = Author(0, "Taylor","Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novels The Seven Husbands of Evelyn Hugo, Daisy Jones & The Six, and Malibu Rising.", "tjreidbooks@email.com", "Penguin", "taylorjenkinsreid.com")
         StephenKing = Author(0, "Stephen", "King", "Stephen Edwin King is an American author of horror, supernatural fiction, suspense, crime, science-fiction, and fantasy novels", "sking@email.com", "Simon & Schuster", "stephenking.com")
-        AkwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@email.com", "Simon & Schuster", "sallyrooney.com")
+        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@email.com", "Simon & Schuster", "sallyrooney.com")
         ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@email.com", "Little, Brown and Company", "colsonwhitehead.com")
 
         // adding 5 Note to the notes api
-        populatedAuthors!!.add(KazuoIshiguro!!)
+        populatedAuthors!!.add(kazuoIshiguro!!)
         populatedAuthors!!.add(SallyRooney!!)
         populatedAuthors!!.add(TaylorJenkinsReid!!)
         populatedAuthors!!.add(StephenKing!!)
-        populatedAuthors!!.add(AkwaekeEmezi!!)
+        populatedAuthors!!.add(akwaekeEmezi!!)
         populatedAuthors!!.add(ColsonWhitehead!!)
     }
 
@@ -97,4 +98,23 @@ class AuthorAPITest {
         }
     }
 
+    @Nested
+    inner class DeleteAuthors {
+
+        @Test
+        fun `deleting a Note that does not exist, returns null`() {
+            assertNull(emptyAuthors!!.delete(0))
+            assertNull(populatedAuthors!!.delete(-1))
+            assertNull(populatedAuthors!!.delete(6))
+        }
+
+        @Test
+        fun `deleting a note that exists delete and returns deleted object`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            assertEquals(akwaekeEmezi, populatedAuthors!!.delete(4))
+            assertEquals(5, populatedAuthors!!.numberOfAuthors())
+            assertEquals(kazuoIshiguro, populatedAuthors!!.delete(0))
+            assertEquals(4, populatedAuthors!!.numberOfAuthors())
+        }
+    }
 }
