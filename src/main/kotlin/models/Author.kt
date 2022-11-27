@@ -1,7 +1,7 @@
 package models
 
-data class Author (
-    var authorID: Int = 0,
+data class Author(
+    var authorID: Int,
     var firstName: String,
     var surname: String,
     var biography: String,

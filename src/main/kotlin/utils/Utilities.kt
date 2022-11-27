@@ -1,5 +1,8 @@
 package utils
 
+import models.Author
+import models.Book
+
 object Utilities {
 
     //NOTE: JvmStatic annotation means that the methods are static (i.e. we can call them over the class
@@ -14,5 +17,20 @@ object Utilities {
     fun isValidListIndex(index: Int, list: List<Any>): Boolean {
         return (index >= 0 && index < list.size)
     }
+
+    @JvmStatic
+    fun isValidID(id: Int, min: Int, max: Int): Boolean {
+        return id in min..max
+    }
+
+    @JvmStatic
+    fun formatListString(notesToFormat: List<Author>): String =
+        notesToFormat
+            .joinToString(separator = "\n") { author ->  "$author" }
+
+    @JvmStatic
+    fun formatSetString(itemsToFormat: Set<Book>): String =
+        itemsToFormat
+            .joinToString(separator = "\n") { book ->  "\t$book" }
 
 }
