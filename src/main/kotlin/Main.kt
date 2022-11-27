@@ -127,13 +127,24 @@ private fun addBook(){
 }
 
 fun deleteBook(){
-    println("deleting book")
+    val author: Author? = askUserToChooseAuthor()
+    if (author != null) {
+        val book: Book? = askUserToChooseBook(author)
+        if (book != null) {
+            val isDeleted = author.delete(book.bookID)
+            if (isDeleted) {
+                println("Delete Successful!")
+            } else {
+                println("Delete NOT Successful")
+            }
+        }
+    }
 }
 
 fun updateBook(){
     val author: Author? = askUserToChooseAuthor()
     if (author != null) {
-        val book: Book? = askUserToChooseItem(author)
+        val book: Book? = askUserToChooseBook(author)
         if (book != null) {
             val newTitle = ScannerInput.readNextLine("Enter new book title: ")
             val newRating = ScannerInput.readNextInt("Enter new book rating: ")
@@ -164,7 +175,7 @@ fun exitApp(){
     System.exit(0)
 }
 
-private fun askUserToChooseItem(author: Author): Book? {
+private fun askUserToChooseBook(author: Author): Book? {
     if (author.numberOfBooks() > 0) {
         print(author.listBooks())
         return author.findOne(ScannerInput.readNextInt("\nEnter the id of the book: "))
