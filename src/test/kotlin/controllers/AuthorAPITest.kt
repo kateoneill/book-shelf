@@ -98,25 +98,25 @@ class AuthorAPITest {
         }
     }
 
-//    @Nested
-//    inner class DeleteAuthors {
-//
-//        @Test
-//        fun `deleting a Note that does not exist, returns null`() {
-//            assertNull(emptyAuthors!!.delete(0))
-//            assertNull(populatedAuthors!!.delete(-1))
-//            assertNull(populatedAuthors!!.delete(6))
-//        }
-//
-//        @Test
-//        fun `deleting a note that exists delete and returns deleted object`() {
-//            assertEquals(6, populatedAuthors!!.numberOfAuthors())
-//            assertEquals(akwaekeEmezi, populatedAuthors!!.delete(4))
-//            assertEquals(5, populatedAuthors!!.numberOfAuthors())
-//            assertEquals(kazuoIshiguro, populatedAuthors!!.delete(0))
-//            assertEquals(4, populatedAuthors!!.numberOfAuthors())
-//        }
-//    }
+    @Nested
+    inner class DeleteAuthors {
+
+        @Test
+        fun `deleting a Note that does not exist, returns null`() {
+            assertFalse(emptyAuthors!!.delete(0))
+            assertFalse(populatedAuthors!!.delete(-1))
+            assertFalse(populatedAuthors!!.delete(6))
+        }
+
+        @Test
+        fun `deleting a note that exists delete and returns deleted object`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            assertTrue(populatedAuthors!!.delete(4))
+            assertEquals(5, populatedAuthors!!.numberOfAuthors())
+            assertTrue(populatedAuthors!!.delete(0))
+            assertEquals(4, populatedAuthors!!.numberOfAuthors())
+        }
+    }
 
     @Nested
     inner class ListNotes {
