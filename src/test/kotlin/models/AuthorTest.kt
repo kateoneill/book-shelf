@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test
 import persistence.XMLSerializer
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class AuthorTest {
     private var NeverGo : Book? = null
@@ -93,6 +95,26 @@ class AuthorTest {
             assertTrue(notesString.contains("an artist of the floating world"))
             assertTrue(notesString.contains("klara and the sun"))
             assertTrue(notesString.contains("the buried giant"))
+        }
+    }
+
+    @Nested
+    inner class DeleteNotes {
+
+        @Test
+        fun `deleting a Note that does not exist, returns null`() {
+            assertFalse(SallyRooney!!.delete(0))
+            assertFalse(kazuoIshiguro!!.delete(-1))
+            assertFalse(kazuoIshiguro!!.delete(7))
+        }
+
+        @Test
+        fun `deleting a note that exists delete and returns deleted object`() {
+            assertEquals(6, kazuoIshiguro!!.numberOfBooks())
+            assertTrue(kazuoIshiguro!!.delete(4))
+            assertEquals(5, kazuoIshiguro!!.numberOfBooks())
+            assertTrue(kazuoIshiguro!!.delete(1))
+            assertEquals(4, kazuoIshiguro!!.numberOfBooks())
         }
     }
 }
