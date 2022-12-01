@@ -4,6 +4,7 @@ import models.Book
 import persistence.JSONSerializer
 import utils.ScannerInput
 import java.io.File
+import utils.ValidateInput
 
 private val authorAPI = AuthorAPI(JSONSerializer(File("notes.json")))
 
@@ -51,12 +52,12 @@ fun runMenu() {
 }
 
 fun addAuthor() {
-    val firstName = ScannerInput.readNextLine("Enter authors first name:")
+    val firstName = ScannerInput.readNextLine("Enter authors first name: ")
     val surname = ScannerInput.readNextLine("Enter authors surname: ")
-    val biography = ScannerInput.readNextLine("Enter a short biography for author")
-    val email = ScannerInput.readNextLine("Enter authors email:")
-    val publisher = ScannerInput.readNextLine("Enter authors publishing company:")
-    val website = ScannerInput.readNextLine("Enter authors website:")
+    val biography = ScannerInput.readNextLine("Enter a short biography for author: ")
+    val email = ScannerInput.readNextLine("Enter authors email: ")
+    val publisher = ScannerInput.readNextLine("Enter authors publishing company: ")
+    val website = ValidateInput.readValidURL("Enter authors website (structure https://www.websitename.com): ")
     val isAdded = authorAPI.add(Author(0,firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website))
 
     if (isAdded) {
@@ -116,7 +117,7 @@ private fun addBook(){
         if (author.addBook(Book(
                 bookTitle = ScannerInput.readNextLine("\t Enter book title: "),
                 bookRating = ScannerInput.readNextInt("\t Enter book rating: "),
-                bookGenre = ScannerInput.readNextLine("\t Enter book genre: "),
+                bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
                 bookLength = ScannerInput.readNextInt("\t Enter book length: "),
                 bookPace = ScannerInput.readNextLine("\t Enter book pace (slow/medium/fast): "),
                 bookProgress = ScannerInput.readNextLine("\t Enter book progress (to-be-read, currently reading, finished reading): ")
