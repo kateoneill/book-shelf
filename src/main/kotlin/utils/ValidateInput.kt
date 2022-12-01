@@ -29,4 +29,17 @@ object ValidateInput {
             }
         } while (true)
     }
+
+    fun readValidEmail(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (EmailValidation.isValidEmail(input))
+                return input
+            else {
+                print("Invalid email: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
 }
