@@ -6,7 +6,7 @@ import utils.ScannerInput
 import java.io.File
 import utils.ValidateInput
 
-private val authorAPI = AuthorAPI(JSONSerializer(File("notes.json")))
+private val authorAPI = AuthorAPI(JSONSerializer(File("authors.json")))
 
 fun main(args: Array<String>) {
     runMenu();
@@ -70,8 +70,8 @@ fun addAuthor() {
 fun updateAuthor() {
     listAllAuthors()
     if (authorAPI.numberOfAuthors() > 0) {
-        // only ask the user to choose the note if notes exist
-        val id = ScannerInput.readNextInt("Enter the id of the note to update: ")
+        // only ask the user to choose the author if author exists
+        val id = ScannerInput.readNextInt("Enter the id of the author to update: ")
         if (authorAPI.findAuthor(id) != null) {
             val firstName = ScannerInput.readNextLine("Enter authors first name:")
             val surname = ScannerInput.readNextLine("Enter authors surname: ")
@@ -79,14 +79,14 @@ fun updateAuthor() {
             val email = ValidateInput.readValidEmail("Enter authors email:")
             val publisher = ScannerInput.readNextLine("Enter authors publishing company:")
             val website = ValidateInput.readValidURL("Enter authors website:")
-            // pass the index of the note and the new note details to NoteAPI for updating and check for success.
+            // pass the index of the author and the new author details to AuthorAPI for updating and check for success.
             if (authorAPI.update(id, Author(0, firstName, surname, biography, email, publisher, website))){
                 println("Update Successful")
             } else {
                 println("Update Failed")
             }
         } else {
-            println("There are no notes for this index number")
+            println("There are no authors for this index number")
         }
     }
 }
@@ -95,11 +95,11 @@ fun deleteAuthor(){
     listAllAuthors()
 
     if (authorAPI.numberOfAuthors() > 0) {
-        // only ask the user to choose the note to delete if notes exist
-        val id = ScannerInput.readNextInt("Enter the id of the note to delete: ")
-        // pass the index of the note to NoteAPI for deleting and check for success.
-        val noteToDelete = authorAPI.delete(id)
-        if (noteToDelete) {
+        // only ask the user to choose the authornto delete if authors exist
+        val id = ScannerInput.readNextInt("Enter the id of the author to delete: ")
+        // pass the index of the author to AuthorAPI for deleting and check for success.
+        val authorToDelete = authorAPI.delete(id)
+        if (authorToDelete) {
             println("Delete Successful!")
         } else {
             println("Delete NOT Successful")
@@ -116,11 +116,11 @@ private fun addBook(){
     if (author != null) {
         if (author.addBook(Book(
                 bookTitle = ScannerInput.readNextLine("\t Enter book title: "),
-                bookRating = ValidateInput.readValidRating("\t Enter book rating: "),
+                bookRating = ValidateInput.readValidRating("\t Enter book rating(1-5): "),
                 bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
                 bookLength = ScannerInput.readNextInt("\t Enter book length: "),
                 bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
-                bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be-read, currently reading, finished reading): ")
+                bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished reading): ")
                 )
             ))
             println("Add Successful!")
@@ -149,11 +149,11 @@ fun updateBook(){
         val book: Book? = askUserToChooseBook(author)
         if (book != null) {
             val newTitle = ScannerInput.readNextLine("Enter new book title: ")
-            val newRating = ScannerInput.readNextInt("Enter new book rating: ")
+            val newRating = ScannerInput.readNextInt("Enter new book rating(1-5): ")
             val newGenre = ValidateInput.readValidGenre("Enter new book genre: ")
-            val newPace = ValidateInput.readValidPace("Enter new book pace: ")
+            val newPace = ValidateInput.readValidPace("Enter new book pace(slow/medium/fast): ")
             val newLength = ScannerInput.readNextInt("Enter new book length: ")
-            val newProgress = ValidateInput.readValidProgress("Update book progress: ")
+            val newProgress = ValidateInput.readValidProgress("Update book progress(to-be read, currently reading, finished reading): ")
             if (author.update(book.bookID, Book(
                     bookTitle = newTitle,
                     bookRating = newRating,
@@ -201,16 +201,14 @@ private fun askUserToChooseBook(author: Author): Book? {
 private fun askUserToChooseAuthor(): Author? {
     listAllAuthors()
     if (authorAPI.numberOfAuthors() > 0) {
-        val author = authorAPI.findAuthor(ScannerInput.readNextInt("\nEnter the id of the note: "))
+        val author = authorAPI.findAuthor(ScannerInput.readNextInt("\nEnter the id of the author: "))
         if (author != null) {
-            return author //chosen note is active
+            return author //chosen author is active
         }
         else {
-            println("Note id is not valid")
+            println("author id is not valid")
         }
     }
     return null
 }
-
-//selected note is not active
 
