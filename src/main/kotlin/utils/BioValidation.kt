@@ -1,7 +1,7 @@
 package utils
 
 object BioValidation {
-
+    @JvmStatic
     fun isValidBio(bio: String?): Boolean {
         val maxLength = 100
         val bioLength = bio?.length

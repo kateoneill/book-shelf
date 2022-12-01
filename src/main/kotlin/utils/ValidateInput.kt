@@ -82,4 +82,16 @@ object ValidateInput {
         } while (true)
     }
 
+    fun readValidRating(prompt: String?): Int {
+        print(prompt)
+        var input = Scanner(System.`in`).nextInt()
+        do {
+            if (RatingValidation.isValidRating(input))
+                return input
+            else {
+                print("Invalid rating: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextInt()
+            }
+        } while (true)
+    }
 }

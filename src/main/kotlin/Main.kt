@@ -116,7 +116,7 @@ private fun addBook(){
     if (author != null) {
         if (author.addBook(Book(
                 bookTitle = ScannerInput.readNextLine("\t Enter book title: "),
-                bookRating = ScannerInput.readNextInt("\t Enter book rating: "),
+                bookRating = ValidateInput.readValidRating("\t Enter book rating: "),
                 bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
                 bookLength = ScannerInput.readNextInt("\t Enter book length: "),
                 bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
