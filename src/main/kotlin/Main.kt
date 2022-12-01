@@ -150,10 +150,10 @@ fun updateBook(){
         if (book != null) {
             val newTitle = ScannerInput.readNextLine("Enter new book title: ")
             val newRating = ScannerInput.readNextInt("Enter new book rating: ")
-            val newGenre = ScannerInput.readNextLine("Enter new book genre: ")
-            val newPace = ScannerInput.readNextLine("Enter new book pace: ")
+            val newGenre = ValidateInput.readValidGenre("Enter new book genre: ")
+            val newPace = ValidateInput.readValidPace("Enter new book pace: ")
             val newLength = ScannerInput.readNextInt("Enter new book length: ")
-            val newProgress = ScannerInput.readNextLine("Update book progress: ")
+            val newProgress = ValidateInput.readValidProgress("Update book progress: ")
             if (author.update(book.bookID, Book(
                     bookTitle = newTitle,
                     bookRating = newRating,
