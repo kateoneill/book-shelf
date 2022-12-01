@@ -75,10 +75,10 @@ fun updateAuthor() {
         if (authorAPI.findAuthor(id) != null) {
             val firstName = ScannerInput.readNextLine("Enter authors first name:")
             val surname = ScannerInput.readNextLine("Enter authors surname: ")
-            val biography = ScannerInput.readNextLine("Enter a short biography for author")
-            val email = ScannerInput.readNextLine("Enter authors email:")
+            val biography = ValidateInput.readValidBio("Enter a short biography for author")
+            val email = ValidateInput.readValidEmail("Enter authors email:")
             val publisher = ScannerInput.readNextLine("Enter authors publishing company:")
-            val website = ScannerInput.readNextLine("Enter authors website:")
+            val website = ValidateInput.readValidURL("Enter authors website:")
             // pass the index of the note and the new note details to NoteAPI for updating and check for success.
             if (authorAPI.update(id, Author(0, firstName, surname, biography, email, publisher, website))){
                 println("Update Successful")
