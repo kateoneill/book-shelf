@@ -53,7 +53,7 @@ data class Author(
     }
 
     fun listBooks() =
-        if (books.isEmpty())  "\tNO ITEMS ADDED"
+        if (books.isEmpty())  "\tNO BOOKS ADDED"
         else  Utilities.formatSetString(books)
 
 }

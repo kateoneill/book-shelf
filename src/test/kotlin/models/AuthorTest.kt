@@ -25,7 +25,7 @@ class AuthorTest {
 
         NeverGo = Book(0, "Never let me go", 5, "Literary fiction", "medium", false, 120, "currently reading")
         RemainsDay = Book(0, "The Remains of the Day", 3, "Romance", "medium", false, 300,"to-be read")
-        ArtistWorld = Book(0, "An artist if the floating world",4, "Mystery", "fast", false, 200,"finished")
+        ArtistWorld = Book(0, "An artist of the floating world",4, "Mystery", "fast", false, 200,"finished")
         BuriedGiant = Book(0, "The buried giant", 5, "Thriller", "slow", false, 250,"currently reading")
         PaleView = Book(0, "A pale view of hills",2, "YA", "slow", true, 700,"finished")
         KlaraSun = Book(0, "Klara and the sun", 3, "Sci-fi", "slow", false, 125, "currently reading")
@@ -52,6 +52,7 @@ class AuthorTest {
         RemainsDay = null
         PaleView = null
         KlaraSun = null
+        SallyRooney = null
     }
 
     @Nested
@@ -72,6 +73,26 @@ class AuthorTest {
             assertTrue(SallyRooney!!.addBook(newBook))
             assertEquals(1, SallyRooney!!.numberOfBooks())
             assertEquals(newBook, SallyRooney!!.findOne(SallyRooney!!.numberOfBooks() - 1))
+        }
+    }
+
+    @Nested
+    inner class ListNotes {
+        @Test
+        fun `listBooks returns No Books Stored message when book ArrayList is empty`() {
+            assertEquals(0, SallyRooney!!.numberOfBooks())
+            assertTrue(SallyRooney!!.listBooks().lowercase().contains("no books"))
+        }
+
+        @Test
+        fun `listBooks returns Books when ArrayList has books stored`() {
+            assertEquals(6, kazuoIshiguro!!.numberOfBooks())
+            val notesString = kazuoIshiguro!!.listBooks().lowercase()
+            assertTrue(notesString.contains("remains of the day"))
+            assertTrue(notesString.contains("never let me go"))
+            assertTrue(notesString.contains("an artist of the floating world"))
+            assertTrue(notesString.contains("klara and the sun"))
+            assertTrue(notesString.contains("the buried giant"))
         }
     }
 }
