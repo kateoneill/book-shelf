@@ -69,4 +69,17 @@ object ValidateInput {
         } while (true)
     }
 
+    fun readValidProgress(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (ProgressValidation.isValidProgress(input))
+                return input
+            else {
+                print("Invalid progress: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
+
 }
