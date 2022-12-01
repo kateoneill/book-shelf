@@ -42,4 +42,18 @@ object ValidateInput {
             }
         } while (true)
     }
+
+    fun readValidBio(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (BioValidation.isValidBio(input))
+                return input
+            else {
+                print("Invalid bio: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
+
 }

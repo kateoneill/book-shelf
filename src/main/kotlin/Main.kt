@@ -54,7 +54,7 @@ fun runMenu() {
 fun addAuthor() {
     val firstName = ScannerInput.readNextLine("Enter authors first name: ")
     val surname = ScannerInput.readNextLine("Enter authors surname: ")
-    val biography = ScannerInput.readNextLine("Enter a short biography for author: ")
+    val biography = ValidateInput.readValidBio("Enter a short biography for author: ")
     val email = ValidateInput.readValidEmail("Enter authors email: ")
     val publisher = ScannerInput.readNextLine("Enter authors publishing company: ")
     val website = ValidateInput.readValidURL("Enter authors website (structure https://www.websitename.com): ")
