@@ -1,5 +1,7 @@
 package models
 
+import persistence.Serializer
+
 data class Book(
     var bookID: Int = 0,
     var bookTitle: String,

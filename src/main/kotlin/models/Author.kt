@@ -1,5 +1,6 @@
 package models
 
+import persistence.Serializer
 import utils.Utilities
 
 data class Author(
