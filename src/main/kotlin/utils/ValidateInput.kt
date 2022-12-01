@@ -56,4 +56,17 @@ object ValidateInput {
         } while (true)
     }
 
+    fun readValidPace(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (PaceValidation.isValidPace(input))
+                return input
+            else {
+                print("Invalid pace: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
+
 }

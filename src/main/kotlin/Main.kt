@@ -119,7 +119,7 @@ private fun addBook(){
                 bookRating = ScannerInput.readNextInt("\t Enter book rating: "),
                 bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
                 bookLength = ScannerInput.readNextInt("\t Enter book length: "),
-                bookPace = ScannerInput.readNextLine("\t Enter book pace (slow/medium/fast): "),
+                bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
                 bookProgress = ScannerInput.readNextLine("\t Enter book progress (to-be-read, currently reading, finished reading): ")
                 )
             ))
