@@ -40,8 +40,8 @@ class AuthorTest {
         kazuoIshiguro!!.addBook(NeverGo!!)
         kazuoIshiguro!!.addBook(RemainsDay!!)
         kazuoIshiguro!!.addBook(ArtistWorld!!)
-        kazuoIshiguro!!.addBook(BuriedGiant!!)
         kazuoIshiguro!!.addBook(PaleView!!)
+        kazuoIshiguro!!.addBook(BuriedGiant!!)
         kazuoIshiguro!!.addBook(KlaraSun!!)
     }
 
@@ -79,7 +79,7 @@ class AuthorTest {
     }
 
     @Nested
-    inner class ListNotes {
+    inner class ListBooks {
         @Test
         fun `listBooks returns No Books Stored message when book ArrayList is empty`() {
             assertEquals(0, SallyRooney!!.numberOfBooks())
@@ -99,22 +99,47 @@ class AuthorTest {
     }
 
     @Nested
-    inner class DeleteNotes {
+    inner class DeleteBooks {
 
         @Test
-        fun `deleting a Note that does not exist, returns null`() {
+        fun `deleting a book that does not exist, returns null`() {
             assertFalse(SallyRooney!!.delete(0))
             assertFalse(kazuoIshiguro!!.delete(-1))
             assertFalse(kazuoIshiguro!!.delete(7))
         }
 
         @Test
-        fun `deleting a note that exists delete and returns deleted object`() {
+        fun `deleting a book that exists delete and returns deleted object`() {
             assertEquals(6, kazuoIshiguro!!.numberOfBooks())
             assertTrue(kazuoIshiguro!!.delete(4))
             assertEquals(5, kazuoIshiguro!!.numberOfBooks())
             assertTrue(kazuoIshiguro!!.delete(1))
             assertEquals(4, kazuoIshiguro!!.numberOfBooks())
         }
+    }@Nested
+    inner class UpdateBooks {
+        @Test
+        fun `updating a note that does not exist returns false`() {
+            assertFalse(kazuoIshiguro!!.update(6, Book(0, "Never let me go", 5, "Literary fiction", "medium", false, 120, "currently reading")))
+            assertFalse(kazuoIshiguro!!.update(-1, Book(0, "Never let me go", 5, "Literary fiction", "medium", false, 120, "currently reading")))
+            assertFalse(SallyRooney!!.update(0, Book(0, "Never let me go", 5, "Literary fiction", "medium", false, 120, "currently reading")))
+        }
+
+        @Test
+        fun `updating a note that exists returns true and updates`() {
+            // check note 5 exists and check the contents
+            assertEquals(BuriedGiant, kazuoIshiguro!!.findOne(4))
+            assertEquals("The buried giant", kazuoIshiguro!!.findOne(4)!!.bookTitle)
+            assertEquals(5, kazuoIshiguro!!.findOne(4)!!.bookRating)
+            assertEquals("slow", kazuoIshiguro!!.findOne(4)!!.bookPace)
+
+            // update note 5 with new information and ensure contents updated successfully
+            assertTrue(kazuoIshiguro!!.update(4, Book(0, "The buried giants", 3, "Mystery", "fast", false, 275,"currently reading")))
+            assertEquals("fast", kazuoIshiguro!!.findOne(4)!!.bookPace)
+            assertEquals("The buried giants", kazuoIshiguro!!.findOne(4)!!.bookTitle)
+            assertEquals(3, kazuoIshiguro!!.findOne(4)!!.bookRating)
+        }
     }
+
+
 }
