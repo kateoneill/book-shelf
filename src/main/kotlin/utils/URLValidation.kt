@@ -4,6 +4,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object URLValidation {
+    @JvmStatic
     fun isValidURL(url: String?): Boolean {
         //This utility method uses the regex library.
         val regex = ("((http|https)://)(www.)?"

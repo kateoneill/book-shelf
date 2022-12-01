@@ -56,4 +56,42 @@ object ValidateInput {
         } while (true)
     }
 
+    fun readValidPace(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (PaceValidation.isValidPace(input))
+                return input
+            else {
+                print("Invalid pace: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
+
+    fun readValidProgress(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (ProgressValidation.isValidProgress(input))
+                return input
+            else {
+                print("Invalid progress: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
+
+    fun readValidRating(prompt: String?): Int {
+        print(prompt)
+        var input = Scanner(System.`in`).nextInt()
+        do {
+            if (RatingValidation.isValidRating(input))
+                return input
+            else {
+                print("Invalid rating: $input.  Please try again: ")
+                input = Scanner(System.`in`).nextInt()
+            }
+        } while (true)
+    }
 }
