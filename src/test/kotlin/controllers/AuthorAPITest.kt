@@ -119,16 +119,16 @@ class AuthorAPITest {
     }
 
     @Nested
-    inner class ListNotes {
+    inner class ListAuthors{
 
         @Test
-        fun `listAllNotes returns No Notes Stored message when ArrayList is empty`() {
+        fun `listAllAuthors returns No Authors Stored message when ArrayList is empty`() {
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
             assertTrue(emptyAuthors!!.listAllAuthors().lowercase().contains("no notes"))
         }
 
         @Test
-        fun `listAllNotes returns Notes when ArrayList has notes stored`() {
+        fun `listAllAuthors returns Authors when ArrayList has notes stored`() {
             assertEquals(6, populatedAuthors!!.numberOfAuthors())
             val authorString = populatedAuthors!!.listAllAuthors().lowercase()
             assertTrue(authorString.contains("akwaeke"))
@@ -136,6 +136,37 @@ class AuthorAPITest {
             assertTrue(authorString.contains("brit"))
             assertTrue(authorString.contains("colson"))
             assertTrue(authorString.contains("sally"))
+        }
+    }
+
+    @Nested
+    inner class SearchMethods {
+        @Test
+        fun `search authors by first name returns when no authors with that name exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val searchResults = populatedAuthors!!.searchByName("no results expected")
+            assertTrue(searchResults.isEmpty())
+
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.searchByName("").isEmpty())
+        }
+
+        @Test
+        fun `search notes by title returns notes when notes with that title exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+
+            var searchResults = populatedAuthors!!.searchByName("Sally")
+            assertTrue(searchResults.contains("Sally"))
+            assertFalse(searchResults.contains("Stephen"))
+
+            searchResults = populatedAuthors!!.searchByName("S")
+            assertTrue(searchResults.contains("Sally"))
+            assertTrue(searchResults.contains("Stephen"))
+            assertFalse(searchResults.contains("Akwaeke"))
+
+            searchResults = populatedAuthors!!.searchByName("TaY")
+            assertTrue(searchResults.contains("Taylor"))
+            assertFalse(searchResults.contains("Colson"))
         }
     }
 }
