@@ -1,14 +1,10 @@
 package models
 
-import controllers.AuthorAPI
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import persistence.XMLSerializer
-import java.io.File
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.assertFalse
 
@@ -25,7 +21,7 @@ class AuthorTest {
     @BeforeEach
     fun setup() {
 
-        NeverGo = Book(0, "Never let me go", 5, "Literary fiction", "medium", false, 120, "currently reading")
+        NeverGo = Book(0, "Never let me go", 5, "Literary fiction", "medium", true, 120, "currently reading")
         RemainsDay = Book(0, "The Remains of the Day", 3, "Romance", "medium", false, 300,"to-be read")
         ArtistWorld = Book(0, "An artist of the floating world",4, "Mystery", "fast", false, 200,"finished")
         BuriedGiant = Book(0, "The buried giant", 5, "Thriller", "slow", false, 250,"currently reading")
@@ -138,6 +134,22 @@ class AuthorTest {
             assertEquals("fast", kazuoIshiguro!!.findOne(4)!!.bookPace)
             assertEquals("The buried giants", kazuoIshiguro!!.findOne(4)!!.bookTitle)
             assertEquals(3, kazuoIshiguro!!.findOne(4)!!.bookRating)
+        }
+    }
+
+    @Nested
+    inner class OwnedBooks {
+
+        @Test
+        fun `check owned books to be sure they are marked as owned`() {
+            assertTrue(kazuoIshiguro!!.findOne(0)!!.isBookOwned)
+            assertTrue(kazuoIshiguro!!.findOne(3)!!.isBookOwned)
+        }
+
+        @Test
+        fun `verify that books marked un-owned return false`() {
+            assertFalse(kazuoIshiguro!!.findOne(1)!!.isBookOwned)
+            assertFalse(kazuoIshiguro!!.findOne(2)!!.isBookOwned)
         }
     }
 
