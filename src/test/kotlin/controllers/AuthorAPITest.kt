@@ -137,6 +137,41 @@ class AuthorAPITest {
             assertTrue(authorString.contains("colson"))
             assertTrue(authorString.contains("sally"))
         }
+
+        @Test
+        fun `listNotesByDueDate returns No Notes when ArrayList is empty`() {
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.listAuthorsByPublisher("brees books").lowercase().contains("no authors") )
+        }
+
+        @Test
+        fun `listAuthorsByPublisher returns no authors when no authors with that publisher exist`() {
+            // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listAuthorsByPublisher("borgans").lowercase()
+            assertTrue(pubString.contains("no authors"))
+            assertTrue(pubString.contains("borgans"))
+        }
+
+        @Test
+        fun `listNotesByDueDate returns all notes that match that due date when notes due then exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listAuthorsByPublisher("Simon & Schuster").lowercase()
+            assertTrue(pubString.contains("akwaeke"))
+            assertTrue(pubString.contains("stephen"))
+            assertTrue(pubString.contains("sally"))
+            assertFalse(pubString.contains("taylor"))
+            assertFalse(pubString.contains("kazuo"))
+            assertFalse(pubString.contains("colson"))
+
+            val monthString = populatedAuthors!!.listAuthorsByPublisher("Penguin").lowercase()
+            assertFalse(monthString.contains("akwaeke"))
+            assertTrue(monthString.contains("sally"))
+            assertTrue(monthString.contains("taylor"))
+            assertFalse(monthString.contains("kazuo"))
+            assertFalse(monthString.contains("colson"))
+            assertFalse(monthString.contains("stephen"))
+        }
     }
 
     @Nested
