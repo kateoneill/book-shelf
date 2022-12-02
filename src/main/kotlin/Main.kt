@@ -29,6 +29,7 @@ fun mainMenu() : Int {
           > |   9) Mark book as owned        |
           > ----------------------------------
           > |   10) Search menu              |
+          > |   11) List menu                |
           > ----------------------------------
           > |   0) Exit                      |
           > ----------------------------------
@@ -50,6 +51,7 @@ fun runMenu() {
             8 -> listAuthorsBooks()
             9 -> markBookAsOwned()
             10 -> searchMenu()
+            11 -> listMenu()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -259,7 +261,7 @@ fun searchMenu() {
             else -> println("Invalid option entered: " + option)
         }
     } else {
-        println("Option Invalid - There are no notes")
+        println("Option Invalid - There are no authors")
     }
 }
 
@@ -276,6 +278,35 @@ fun searchAuthorsByFirstName(){
 fun searchAuthorsByEmail(){
     val searchEmail = ValidateInput.readValidEmail("Enter email to search by: ")
     val searchResults = authorAPI.searchByEmail(searchEmail)
+    if (searchResults.isEmpty()) {
+        println("No authors found")
+    } else {
+        println(searchResults)
+    }
+}
+
+
+fun listMenu() {
+    if (authorAPI.numberOfAuthors() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  > -------------------------------------------------
+                  > |   1) List by publisher                        |
+                  > -------------------------------------------------
+         > ==>> """.trimMargin(">")
+        )
+
+        when (option) {
+            1 -> listAuthorsByPublisher()
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - There are no authors")
+    }
+}
+fun listAuthorsByPublisher() {
+    val publisher = ScannerInput.readNextLine("Enter publisher to list by: ")
+    val searchResults = authorAPI.listAuthorsByPublisher(publisher)
     if (searchResults.isEmpty()) {
         println("No authors found")
     } else {
