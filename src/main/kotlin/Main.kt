@@ -292,12 +292,14 @@ fun listMenu() {
             """
                   > -------------------------------------------------
                   > |   1) List by publisher                        |
+                  > |   2) List by surname                          |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
 
         when (option) {
             1 -> listAuthorsByPublisher()
+            2 -> listAuthorsBySurname()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -307,6 +309,16 @@ fun listMenu() {
 fun listAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to list by: ")
     val searchResults = authorAPI.listAuthorsByPublisher(publisher)
+    if (searchResults.isEmpty()) {
+        println("No authors found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun listAuthorsBySurname() {
+    val surname = ScannerInput.readNextLine("Enter surname to list by: ")
+    val searchResults = authorAPI.listAuthorsBySurname(surname)
     if (searchResults.isEmpty()) {
         println("No authors found")
     } else {
