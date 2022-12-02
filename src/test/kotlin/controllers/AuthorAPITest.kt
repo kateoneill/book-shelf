@@ -287,5 +287,16 @@ class AuthorAPITest {
             assertEquals(1, populatedAuthors!!.numberOfAuthorsByPublisher("Little, Brown and Company"))
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
         }
+
+        @Test
+        fun numberOfNotesBySurnameCalculatedCorrectly() {
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Ishiguro"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Emezi"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Rooney"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Whitehead"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Jenkins Reid"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("King"))
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+        }
     }
 }
