@@ -1,6 +1,5 @@
 package models
 
-import persistence.Serializer
 import utils.Utilities
 import utils.Utilities.isValidID
 
@@ -13,32 +12,32 @@ data class Author(
     var publisher: String,
     var website: String,
     var books: MutableSet<Book> = mutableSetOf()
-        ){
+        ) {
 
     private var lastBookId = 0
     private fun getBookId() = lastBookId++
 
-    fun addBook(book: Book) : Boolean {
+    fun addBook(book: Book): Boolean {
         book.bookID = getBookId()
         return books.add(book)
     }
 
     fun numberOfBooks() = books.size
 
-    fun findOne(id: Int): Book?{
-        return books.find{ book -> book.bookID == id }
+    fun findOne(id: Int): Book? {
+        return books.find { book -> book.bookID == id }
     }
 
     fun delete(id: Int): Boolean {
-        return books.removeIf { book -> book.bookID == id}
+        return books.removeIf { book -> book.bookID == id }
     }
 
-    fun update(id: Int, newBook : Book): Boolean {
+    fun update(id: Int, newBook: Book): Boolean {
         val foundBook = findOne(id)
 
         //if the object exists, use the details passed in the newItem parameter to
         //update the found object in the Set
-        if (foundBook != null){
+        if (foundBook != null) {
             foundBook.bookTitle = newBook.bookTitle
             foundBook.bookGenre = newBook.bookGenre
             foundBook.bookLength = newBook.bookLength
@@ -54,10 +53,18 @@ data class Author(
     }
 
     fun listBooks() =
-        if (books.isEmpty())  "\tNO BOOKS ADDED"
-        else  Utilities.formatSetString(books)
+        if (books.isEmpty()) "\tNO BOOKS ADDED"
+        else Utilities.formatSetString(books)
 
+
+    fun checkBookOwnershipStatus(): Boolean {
+        if (books.isNotEmpty()) {
+            for (book in books) {
+                if (!book.isBookOwned) {
+                    return false
+                }
+            }
+        }
+        return true //a note with empty items can be archived, or all items are complete
+    }
 }
-
-
-
