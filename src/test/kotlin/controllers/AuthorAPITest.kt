@@ -29,7 +29,7 @@ class AuthorAPITest {
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "https://www.sally.com")
         TaylorJenkinsReid = Author(0, "Taylor","Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novel The Seven Husbands of Evelyn Hugo", "tjreidbooks@email.com", "Penguin", "https://www.taylorjenkinsreid.com")
         StephenKing = Author(0, "Stephen", "King", "Stephen King is an American author of horror, suspense, crime, science-fiction, and fantasy novels", "sking@email.com", "Simon & Schuster", "http://www.stephenking.com")
-        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@gmail.com", "Simon & Schuster", "https://www.sallyrooney.com")
+        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@gmail.com", "Simon & Schuster", "https://www.akwa.com")
         ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@email.com", "Little, Brown and Company", "http://www.colsonwhitehead.com")
 
         // adding 5 Note to the notes api
@@ -136,6 +136,76 @@ class AuthorAPITest {
             assertTrue(authorString.contains("brit"))
             assertTrue(authorString.contains("colson"))
             assertTrue(authorString.contains("sally"))
+        }
+
+        @Test
+        fun `listAuthorsByPublisher returns No authors when ArrayList is empty`() {
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.listAuthorsByPublisher("brees books").lowercase().contains("no authors") )
+        }
+
+        @Test
+        fun `listAuthorsByPublisher returns no authors when no authors with that publisher exist`() {
+            // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listAuthorsByPublisher("borgans").lowercase()
+            assertTrue(pubString.contains("no authors"))
+            assertTrue(pubString.contains("borgans"))
+        }
+
+        @Test
+        fun `listNotesByPublisher returns all authors that match that publisher when authors with that publisher exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listAuthorsByPublisher("Simon & Schuster").lowercase()
+            assertTrue(pubString.contains("akwaeke"))
+            assertTrue(pubString.contains("stephen"))
+            assertFalse(pubString.contains("sally"))
+            assertFalse(pubString.contains("taylor"))
+            assertFalse(pubString.contains("kazuo"))
+            assertFalse(pubString.contains("colson"))
+
+            val monthString = populatedAuthors!!.listAuthorsByPublisher("Penguin").lowercase()
+            assertFalse(monthString.contains("akwaeke"))
+            assertTrue(monthString.contains("sally"))
+            assertTrue(monthString.contains("taylor"))
+            assertFalse(monthString.contains("kazuo"))
+            assertFalse(monthString.contains("colson"))
+            assertFalse(monthString.contains("stephen"))
+        }
+
+        @Test
+        fun `listAuthorsBySurname returns No authors when ArrayList is empty`() {
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.listAuthorsBySurname("quinn").lowercase().contains("no authors") )
+        }
+
+        @Test
+        fun `listAuthorsBySurname returns no authors when no authors with that surname exist`() {
+            // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listAuthorsBySurname("quinn").lowercase()
+            assertTrue(pubString.contains("no authors"))
+            assertTrue(pubString.contains("quinn"))
+        }
+
+        @Test
+        fun `listAuthorsBySurname returns all authors that match that surname when authors due then exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listAuthorsBySurname("Emezi").lowercase()
+            assertTrue(pubString.contains("akwaeke"))
+            assertFalse(pubString.contains("stephen"))
+            assertFalse(pubString.contains("sally"))
+            assertFalse(pubString.contains("taylor"))
+            assertFalse(pubString.contains("kazuo"))
+            assertFalse(pubString.contains("colson"))
+
+            val monthString = populatedAuthors!!.listAuthorsBySurname("King").lowercase()
+            assertFalse(monthString.contains("akwaeke"))
+            assertFalse(monthString.contains("sally"))
+            assertFalse(monthString.contains("taylor"))
+            assertFalse(monthString.contains("kazuo"))
+            assertFalse(monthString.contains("colson"))
+            assertTrue(monthString.contains("stephen"))
         }
     }
 

@@ -60,6 +60,22 @@ class AuthorAPI(serializerType: Serializer) {
         formatListString(
             authors.filter { author -> author.email.contains(searchString, ignoreCase = true) }
         )
+
+    fun listAuthorsByPublisher(publisher: String): String =
+        if (authors.isEmpty()) "No authors stored"
+        else {
+            val listOfAuthors = formatListString(authors.filter { author -> author.publisher == publisher })
+            if (listOfAuthors.equals("")) "No authors with publisher: $publisher"
+            else "$publisher: $listOfAuthors"
+        }
+
+    fun listAuthorsBySurname(surname: String): String =
+        if (authors.isEmpty()) "No authors stored"
+        else {
+            val listOfAuthors = formatListString(authors.filter { author -> author.surname == surname })
+            if (listOfAuthors.equals("")) "No authors with publisher: $surname"
+            else "$surname: $listOfAuthors"
+        }
 }
 
 
