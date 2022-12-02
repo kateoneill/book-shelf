@@ -81,6 +81,11 @@ class AuthorAPI(serializerType: Serializer) {
             author: Author ->
         author.publisher == publisher
     }
+
+    fun numberOfAuthorsBySurname(surname: String): Int = authors.count {
+            author: Author ->
+        author.surname == surname
+    }
 }
 
 

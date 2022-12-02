@@ -335,6 +335,7 @@ fun countMenu() {
                   > -------------------------------------------------
                   > |   1) Count all authors                        |
                   > |   2) Count authors by publisher               |
+                  > |   3) Count authors by surname                 |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -342,6 +343,7 @@ fun countMenu() {
         when (option) {
             1 -> countAllAuthors()
             2 -> countAuthorsByPublisher()
+            3 -> countAuthorsBySurname()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -352,5 +354,11 @@ fun countMenu() {
 fun countAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to count by: ")
     val searchResults = authorAPI.numberOfAuthorsByPublisher(publisher)
+    println(searchResults)
+}
+
+fun countAuthorsBySurname() {
+    val surname = ScannerInput.readNextLine("Enter surnmae to count by: ")
+    val searchResults = authorAPI.numberOfAuthorsBySurname(surname)
     println(searchResults)
 }
