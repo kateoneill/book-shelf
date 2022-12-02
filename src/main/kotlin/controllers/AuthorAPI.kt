@@ -76,6 +76,16 @@ class AuthorAPI(serializerType: Serializer) {
             if (listOfAuthors.equals("")) "No authors with publisher: $surname"
             else "$surname: $listOfAuthors"
         }
+
+    fun numberOfAuthorsByPublisher(publisher: String): Int = authors.count {
+            author: Author ->
+        author.publisher == publisher
+    }
+
+    fun numberOfAuthorsBySurname(surname: String): Int = authors.count {
+            author: Author ->
+        author.surname == surname
+    }
 }
 
 

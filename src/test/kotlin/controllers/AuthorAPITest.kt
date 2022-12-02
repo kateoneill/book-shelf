@@ -269,4 +269,34 @@ class AuthorAPITest {
             assertFalse(searchResults.contains("Colson"))
         }
     }
+
+    @Nested
+    inner class CountingMethods {
+
+        @Test
+        fun numberOfNotesCalculatedCorrectly() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+        }
+
+        @Test
+        fun numberOfNotesByPublisherCalculatedCorrectly() {
+            assertEquals(2, populatedAuthors!!.numberOfAuthorsByPublisher("Simon & Schuster"))
+            assertEquals(2, populatedAuthors!!.numberOfAuthorsByPublisher("Penguin"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsByPublisher("Faber & Faber"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsByPublisher("Little, Brown and Company"))
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+        }
+
+        @Test
+        fun numberOfNotesBySurnameCalculatedCorrectly() {
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Ishiguro"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Emezi"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Rooney"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Whitehead"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Jenkins Reid"))
+            assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("King"))
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+        }
+    }
 }
