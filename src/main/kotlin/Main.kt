@@ -28,6 +28,8 @@ fun mainMenu() : Int {
           > |   8) List books                |
           > |   9) Mark book as owned        |
           > ----------------------------------
+          > |   10) Search menu              |
+          > ----------------------------------
           > |   0) Exit                      |
           > ----------------------------------
           > Choose:""".trimMargin(">"))
@@ -47,6 +49,7 @@ fun runMenu() {
             7 -> deleteBook()
             8 -> listAuthorsBooks()
             9 -> markBookAsOwned()
+            10 -> searchMenu()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -239,3 +242,43 @@ fun markBookAsOwned() {
     }
 }
 
+fun searchMenu() {
+    if (authorAPI.numberOfAuthors() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  > -------------------------------------------------
+                  > |   1) Search authors by first name             |
+                  > |   2) Search authors by email                  |
+                  > -------------------------------------------------
+         > ==>> """.trimMargin(">")
+        )
+
+        when (option) {
+            1 -> searchAuthorsByFirstName()
+            2 -> searchAuthorsByEmail()
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - There are no notes")
+    }
+}
+
+fun searchAuthorsByFirstName(){
+    val searchName = ScannerInput.readNextLine("Enter first name to search by: ")
+    val searchResults = authorAPI.searchByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No authors found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchAuthorsByEmail(){
+    val searchEmail = ValidateInput.readValidEmail("Enter email to search by: ")
+    val searchResults = authorAPI.searchByEmail(searchEmail)
+    if (searchResults.isEmpty()) {
+        println("No authors found")
+    } else {
+        println(searchResults)
+    }
+}

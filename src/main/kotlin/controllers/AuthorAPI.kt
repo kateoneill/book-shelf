@@ -50,6 +50,16 @@ class AuthorAPI(serializerType: Serializer) {
     fun numberOfAuthors(): Int {
         return authors.size
     }
+
+    fun searchByName(searchString: String) =
+        formatListString(
+            authors.filter { author -> author.firstName.contains(searchString, ignoreCase = true) }
+        )
+
+    fun searchByEmail(searchString: String) =
+        formatListString(
+            authors.filter { author -> author.email.contains(searchString, ignoreCase = true) }
+        )
 }
 
 
