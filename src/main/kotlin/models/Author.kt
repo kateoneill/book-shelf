@@ -2,6 +2,7 @@ package models
 
 import persistence.Serializer
 import utils.Utilities
+import utils.Utilities.isValidID
 
 data class Author(
     var authorID: Int = 0,
@@ -57,3 +58,6 @@ data class Author(
         else  Utilities.formatSetString(books)
 
 }
+
+
+

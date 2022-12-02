@@ -25,7 +25,8 @@ fun mainMenu() : Int {
           > |   5) Add a book to author      |
           > |   6) Update book               |
           > |   7) Delete book               |
-          > |   8) List all books            |
+          > |   8) List books                |
+          > |   9) Mark book as owned        |
           > ----------------------------------
           > |   0) Exit                      |
           > ----------------------------------
@@ -45,11 +46,13 @@ fun runMenu() {
             6 -> updateBook()
             7 -> deleteBook()
             8 -> listAuthorsBooks()
+            9 -> markBookAsOwned()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
     }while (true)
 }
+
 
 fun addAuthor() {
     val firstName = ScannerInput.readNextLine("Enter authors first name: ")
@@ -210,5 +213,29 @@ private fun askUserToChooseAuthor(): Author? {
         }
     }
     return null
+}
+
+fun markBookAsOwned() {
+    val author: Author? = askUserToChooseAuthor()
+    if (author != null) {
+        val book: Book? = askUserToChooseBook(author)
+        if (book != null) {
+            var changeStatus = 'X'
+            if (book.isBookOwned) {
+                changeStatus =
+                    ScannerInput.readNextChar("The book is currently owned...do you want to mark it as un-owned?")
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                    book.isBookOwned= false
+                println("Book has been marked as un-owned")
+            }
+            else {
+                changeStatus =
+                    ScannerInput.readNextChar("The book is currently un-owned...do you want to mark it as owned?")
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                    book.isBookOwned = true
+                println("Book has been marked as owned")
+            }
+        }
+    }
 }
 
