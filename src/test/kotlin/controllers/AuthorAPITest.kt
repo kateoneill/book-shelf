@@ -29,7 +29,7 @@ class AuthorAPITest {
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "https://www.sally.com")
         TaylorJenkinsReid = Author(0, "Taylor","Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novel The Seven Husbands of Evelyn Hugo", "tjreidbooks@email.com", "Penguin", "https://www.taylorjenkinsreid.com")
         StephenKing = Author(0, "Stephen", "King", "Stephen King is an American author of horror, suspense, crime, science-fiction, and fantasy novels", "sking@email.com", "Simon & Schuster", "http://www.stephenking.com")
-        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@email.com", "Simon & Schuster", "https://www.sallyrooney.com")
+        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@gmail.com", "Simon & Schuster", "https://www.sallyrooney.com")
         ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@email.com", "Little, Brown and Company", "http://www.colsonwhitehead.com")
 
         // adding 5 Note to the notes api
@@ -141,6 +141,7 @@ class AuthorAPITest {
 
     @Nested
     inner class SearchMethods {
+        //testing search by name
         @Test
         fun `search authors by first name returns when no authors with that name exist`() {
             assertEquals(6, populatedAuthors!!.numberOfAuthors())
@@ -152,7 +153,7 @@ class AuthorAPITest {
         }
 
         @Test
-        fun `search notes by title returns notes when notes with that title exist`() {
+        fun `search authors by name returns authors when authors with that name exist`() {
             assertEquals(6, populatedAuthors!!.numberOfAuthors())
 
             var searchResults = populatedAuthors!!.searchByName("Sally")
@@ -166,6 +167,35 @@ class AuthorAPITest {
 
             searchResults = populatedAuthors!!.searchByName("TaY")
             assertTrue(searchResults.contains("Taylor"))
+            assertFalse(searchResults.contains("Colson"))
+        }
+
+        //testing search by email
+        @Test
+        fun `search authors by emails returns when no authors with that email exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val searchResults = populatedAuthors!!.searchByEmail("emailfiller@emailfiller.com")
+            assertTrue(searchResults.isEmpty())
+
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.searchByEmail("").isEmpty())
+        }
+
+        @Test
+        fun `search author by email returns authors when authors with that email exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+
+            var searchResults = populatedAuthors!!.searchByEmail("srooney@email.com")
+            assertTrue(searchResults.contains("Sally"))
+            assertFalse(searchResults.contains("Stephen"))
+
+            searchResults = populatedAuthors!!.searchByEmail("@email.com")
+            assertTrue(searchResults.contains("Sally"))
+            assertTrue(searchResults.contains("Stephen"))
+            assertFalse(searchResults.contains("Akwaeke"))
+
+            searchResults = populatedAuthors!!.searchByEmail("SkiNG@emAil.COm")
+            assertTrue(searchResults.contains("Stephen"))
             assertFalse(searchResults.contains("Colson"))
         }
     }
