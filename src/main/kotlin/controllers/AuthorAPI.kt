@@ -134,4 +134,30 @@ class AuthorAPI(serializerType: Serializer) {
             else listOfAuthor
         }
     }
+
+    fun numberOfBooksMarkedOwned(): Int {
+        var numberOfBooksMarkedOwned = 0
+        for (author in authors) {
+            for (book in author.books) {
+                if (!book.isBookOwned) {
+                    numberOfBooksMarkedOwned++
+                }
+            }
+        }
+        return numberOfBooksMarkedOwned
+    }
+
+    fun listBooksMarkedOwned(): String =
+            if (numberOfAuthors() == 0) "No authors stored"
+            else {
+                var listOfBooksMarkedOwned = ""
+                for (author in authors) {
+                    for (book in author.books) {
+                        if (!book.isBookOwned) {
+                            listOfBooksMarkedOwned += author.firstName +" " +author.surname + ": " + book.bookTitle + "\n"
+                        }
+                    }
+                }
+                listOfBooksMarkedOwned
+            }
 }

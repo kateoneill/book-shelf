@@ -332,6 +332,7 @@ fun listMenu() {
                   > -------------------------------------------------
                   > |   1) List by publisher                        |
                   > |   2) List by surname                          |
+                  > |   3) List books that are owned                |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -339,6 +340,7 @@ fun listMenu() {
         when (option) {
             1 -> listAuthorsByPublisher()
             2 -> listAuthorsBySurname()
+            3 -> ListBooksThatAreOwned()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -363,6 +365,13 @@ fun listAuthorsBySurname() {
     } else {
         println(searchResults)
     }
+}
+
+fun ListBooksThatAreOwned() {
+    if (authorAPI.numberOfBooksMarkedOwned() > 0) {
+        println("Total books owned: ${authorAPI.numberOfBooksMarkedOwned()}")
+    }
+    println(authorAPI.listBooksMarkedOwned())
 }
 
 fun countMenu() {
