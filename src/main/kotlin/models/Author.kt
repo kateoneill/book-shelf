@@ -2,6 +2,7 @@ package models
 
 import utils.Utilities
 import utils.Utilities.isValidID
+import utils.Utilities.formatListString
 
 data class Author(
     var authorID: Int = 0,

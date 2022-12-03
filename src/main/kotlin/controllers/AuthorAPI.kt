@@ -86,6 +86,22 @@ class AuthorAPI(serializerType: Serializer) {
             author: Author ->
         author.surname == surname
     }
+
+    fun searchBookByTitle(searchString: String): String {
+        return if (numberOfAuthors() == 0) "No authors stored"
+        else {
+            var listOfAuthor = ""
+            for (author in authors) {
+                for (book in author.books) {
+                    if (book.bookTitle.contains(searchString, ignoreCase = true)) {
+                        listOfAuthor += "${author.authorID}: ${author.firstName} \n\t${book}\n"
+                    }
+                }
+            }
+            if (listOfAuthor == "") "No books found for: $searchString"
+            else listOfAuthor
+        }
+    }
 }
 
 

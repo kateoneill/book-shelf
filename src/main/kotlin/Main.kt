@@ -253,6 +253,7 @@ fun searchMenu() {
                   > -------------------------------------------------
                   > |   1) Search authors by first name             |
                   > |   2) Search authors by email                  |
+                  > |   3) Search books by title                    |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -260,6 +261,7 @@ fun searchMenu() {
         when (option) {
             1 -> searchAuthorsByFirstName()
             2 -> searchAuthorsByEmail()
+            3 -> searchBooksByTitle()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -285,6 +287,16 @@ fun searchAuthorsByEmail(){
     } else {
         println(searchResults)
     }
+}
+
+fun searchBooksByTitle(){
+        val searchContents = ScannerInput.readNextLine("Enter the book title to search by: ")
+        val searchResults = authorAPI.searchBookByTitle(searchContents)
+        if (searchResults.isEmpty()) {
+            println("No books found")
+        } else {
+            println(searchResults)
+        }
 }
 
 
