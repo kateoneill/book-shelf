@@ -408,3 +408,13 @@ fun countAuthorsBySurname() {
     val searchResults = authorAPI.numberOfAuthorsBySurname(surname)
     println(searchResults)
 }
+
+//fun listBooksByLength() {
+//    val author: Author? = askUserToChooseAuthor()
+//    if (author != null){
+//        println(author.listBooksInOrderOfPageLength())
+//    }
+//    else {
+//        println("No books here, add some!!")
+//    }
+//}
