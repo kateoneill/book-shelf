@@ -69,3 +69,9 @@ data class Author(
         return true //a note with empty items can be archived, or all items are complete
     }
 }
+
+//fun listBooksInOrderOfPageLength(){
+//    if (books.isEmpty()) "No books stored"
+//    else Utilities.formatSetString(books.sortedBy { it.bookLength }.toSet())
+//}
+//}
