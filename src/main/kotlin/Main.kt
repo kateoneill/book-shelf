@@ -68,7 +68,8 @@ fun addAuthor() {
     val email = ValidateInput.readValidEmail("Enter authors email: ")
     val publisher = ScannerInput.readNextLine("Enter authors publishing company: ")
     val website = ValidateInput.readValidURL("Enter authors website (structure https://www.websitename.com): ")
-    val isAdded = authorAPI.add(Author(0,firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website))
+    val isAdded = authorAPI.add(Author(0,
+        firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website))
 
     if (isAdded) {
         println("Added Successfully")

@@ -1,16 +1,15 @@
 package controllers
 
 import models.Author
+import models.Book
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import persistence.XMLSerializer
 import java.io.File
-import javax.swing.plaf.synth.SynthTextAreaUI
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class AuthorAPITest {
@@ -20,17 +19,24 @@ class AuthorAPITest {
     private var StephenKing: Author? = null
     private var akwaekeEmezi: Author? = null
     private var ColsonWhitehead: Author? = null
+    private var NeverGo : Book? = null
+    private var ArtistWorld: Book? = null
+    private var BuriedGiant: Book? = null
+
     private var populatedAuthors: AuthorAPI? = AuthorAPI(XMLSerializer(File("notes.xml")))
     private var emptyAuthors: AuthorAPI? = AuthorAPI(XMLSerializer(File("notes.xml")))
 
     @BeforeEach
     fun setup() {
-        kazuoIshiguro = Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "https://www.kazuoishiguro.com")
+        kazuoIshiguro = Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "https://www.kazuoishiguro.com",mutableSetOf<Book>())
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "https://www.sally.com")
         TaylorJenkinsReid = Author(0, "Taylor","Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novel The Seven Husbands of Evelyn Hugo", "tjreidbooks@email.com", "Penguin", "https://www.taylorjenkinsreid.com")
         StephenKing = Author(0, "Stephen", "King", "Stephen King is an American author of horror, suspense, crime, science-fiction, and fantasy novels", "sking@email.com", "Simon & Schuster", "http://www.stephenking.com")
         akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@gmail.com", "Simon & Schuster", "https://www.akwa.com")
         ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@email.com", "Little, Brown and Company", "http://www.colsonwhitehead.com")
+        NeverGo = Book(0, "Never let me go", 5, "Literary fiction", "medium", true, 120, "currently reading")
+        ArtistWorld = Book(0, "An artist of the floating world",4, "Mystery", "fast", false, 200,"finished")
+        BuriedGiant = Book(0, "The buried giant", 5, "Thriller", "slow", false, 250,"currently reading")
 
         // adding 5 Note to the notes api
         populatedAuthors!!.add(kazuoIshiguro!!)
@@ -39,6 +45,9 @@ class AuthorAPITest {
         populatedAuthors!!.add(StephenKing!!)
         populatedAuthors!!.add(akwaekeEmezi!!)
         populatedAuthors!!.add(ColsonWhitehead!!)
+        kazuoIshiguro!!.addBook(NeverGo!!)
+        kazuoIshiguro!!.addBook(ArtistWorld!!)
+        kazuoIshiguro!!.addBook(BuriedGiant!!)
     }
 
     @AfterEach
@@ -50,6 +59,9 @@ class AuthorAPITest {
         akwaekeEmezi = null
         ColsonWhitehead = null
         emptyAuthors = null
+        NeverGo = null
+        ArtistWorld = null
+        BuriedGiant = null
     }
 
     @Nested
@@ -267,6 +279,36 @@ class AuthorAPITest {
             searchResults = populatedAuthors!!.searchByEmail("SkiNG@emAil.COm")
             assertTrue(searchResults.contains("Stephen"))
             assertFalse(searchResults.contains("Colson"))
+        }
+
+        @Test
+        fun `search books by title returns no books when no books with that title exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            assertEquals(3, kazuoIshiguro!!.numberOfBooks())
+            val testTitle = populatedAuthors!!.searchBookByTitle("Should be EMPty").lowercase()
+            assertTrue(testTitle.contains("no books"))
+
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            val testTitle2 = populatedAuthors!!.searchBookByTitle("Should be EMPty").lowercase()
+            assertTrue(testTitle2.contains("no books"))
+        }
+
+        @Test
+        fun `search books by title returns books when books with that title exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+
+            var searchResults = populatedAuthors!!.searchBookByTitle("Never let me go").lowercase()
+            assertTrue(searchResults.contains("kazuo"))
+            assertFalse(searchResults.contains("sally"))
+
+            searchResults = populatedAuthors!!.searchBookByTitle("the")
+            assertTrue(searchResults.contains("giant"))
+            assertTrue(searchResults.contains("artist"))
+            assertFalse(searchResults.contains("never"))
+
+            searchResults = populatedAuthors!!.searchBookByTitle("NeVeR LET mE gO").lowercase()
+            assertTrue(searchResults.contains("never let me go"))
+            assertFalse(searchResults.contains("the buried giant"))
         }
     }
 

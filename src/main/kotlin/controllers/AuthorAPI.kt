@@ -103,7 +103,3 @@ class AuthorAPI(serializerType: Serializer) {
         }
     }
 }
-
-
-
-

@@ -13,7 +13,7 @@ data class Author(
     var publisher: String,
     var website: String,
     var books: MutableSet<Book> = mutableSetOf()
-        ) {
+) {
 
     private var lastBookId = 0
     private fun getBookId() = lastBookId++
