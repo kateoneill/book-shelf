@@ -219,6 +219,31 @@ class AuthorAPITest {
             assertFalse(monthString.contains("colson"))
             assertTrue(monthString.contains("stephen"))
         }
+
+        @Test
+        fun `listBooksMarkedOwned returns No books when ArrayList is empty`() {
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            assertTrue(emptyAuthors!!.listBooksMarkedOwned().lowercase().contains("no authors") )
+        }
+
+        @Test
+        fun `listBooksMarkedOwned returns no authors when no authors with books marked owned exist`() {
+            // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listBooksMarkedOwned().lowercase()
+            assertFalse(pubString.contains("sally"))
+            assertFalse(pubString.contains("colson"))
+            assertFalse(pubString.contains("taylor"))
+        }
+
+        @Test
+        fun `listBooksMarkedOwned returns all authors with books that are marked owned`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            val pubString = populatedAuthors!!.listBooksMarkedOwned().lowercase()
+            assertTrue(pubString.contains("kazuo"))
+            assertFalse(pubString.contains("stephen"))
+            assertFalse(pubString.contains("colson"))
+        }
     }
 
     @Nested
@@ -398,6 +423,12 @@ class AuthorAPITest {
             assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Whitehead"))
             assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("Jenkins Reid"))
             assertEquals(1, populatedAuthors!!.numberOfAuthorsBySurname("King"))
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+        }
+
+        @Test
+        fun numberOfBooksMarkedOwnedCalculatedCorrectly() {
+            assertEquals(1, populatedAuthors!!.numberOfBooksMarkedOwned())
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
         }
     }

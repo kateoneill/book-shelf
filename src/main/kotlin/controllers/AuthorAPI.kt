@@ -139,7 +139,7 @@ class AuthorAPI(serializerType: Serializer) {
         var numberOfBooksMarkedOwned = 0
         for (author in authors) {
             for (book in author.books) {
-                if (!book.isBookOwned) {
+                if (book.isBookOwned) {
                     numberOfBooksMarkedOwned++
                 }
             }
