@@ -86,8 +86,52 @@ class AuthorAPI(serializerType: Serializer) {
             author: Author ->
         author.surname == surname
     }
+
+    fun searchBookByTitle(searchString: String): String {
+        return if (numberOfAuthors() == 0) "No authors stored"
+        else {
+            var listOfAuthor = ""
+            for (author in authors) {
+                for (book in author.books) {
+                    if (book.bookTitle.contains(searchString, ignoreCase = true)) {
+                        listOfAuthor += "${author.authorID}: ${author.firstName} \n\t${book}\n"
+                    }
+                }
+            }
+            if (listOfAuthor == "") "No books found for: $searchString"
+            else listOfAuthor
+        }
+    }
+
+    fun searchBookByGenre(searchString: String): String {
+        return if (numberOfAuthors() == 0) "No authors stored"
+        else {
+            var listOfAuthor = ""
+            for (author in authors) {
+                for (book in author.books) {
+                    if (book.bookGenre.contains(searchString, ignoreCase = true)) {
+                        listOfAuthor += "${author.authorID}: ${author.firstName} \n\t${book}\n"
+                    }
+                }
+            }
+            if (listOfAuthor == "") "No books found for: $searchString"
+            else listOfAuthor
+        }
+    }
+
+    fun searchBookByLength(searchInt: Int): String {
+        return if (numberOfAuthors() == 0) "No authors stored"
+        else {
+            var listOfAuthor = ""
+            for (author in authors) {
+                for (book in author.books) {
+                    if (book.bookLength == searchInt) {
+                        listOfAuthor += "${author.authorID}: ${author.firstName} \n\t${book}\n"
+                    }
+                }
+            }
+            if (listOfAuthor == "") "No books found for: $searchInt"
+            else listOfAuthor
+        }
+    }
 }
-
-
-
-

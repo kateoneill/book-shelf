@@ -27,8 +27,7 @@ class AuthorTest {
         BuriedGiant = Book(0, "The buried giant", 5, "Thriller", "slow", false, 250,"currently reading")
         PaleView = Book(0, "A pale view of hills",2, "YA", "slow", true, 700,"finished")
         KlaraSun = Book(0, "Klara and the sun", 3, "Sci-fi", "slow", false, 125, "currently reading")
-        kazuoIshiguro =  Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA FRSL is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "kazuoishiguro.com",
-            mutableSetOf<Book>())
+        kazuoIshiguro =  Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA FRSL is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "kazuoishiguro.com",mutableSetOf<Book>())
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "sally.com", mutableSetOf<Book>())
 
 

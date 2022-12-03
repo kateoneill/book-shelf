@@ -68,7 +68,8 @@ fun addAuthor() {
     val email = ValidateInput.readValidEmail("Enter authors email: ")
     val publisher = ScannerInput.readNextLine("Enter authors publishing company: ")
     val website = ValidateInput.readValidURL("Enter authors website (structure https://www.websitename.com): ")
-    val isAdded = authorAPI.add(Author(0,firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website))
+    val isAdded = authorAPI.add(Author(0,
+        firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website))
 
     if (isAdded) {
         println("Added Successfully")
@@ -253,6 +254,9 @@ fun searchMenu() {
                   > -------------------------------------------------
                   > |   1) Search authors by first name             |
                   > |   2) Search authors by email                  |
+                  > |   3) Search books by title                    |
+                  > |   4) Search books by genre                    |
+                  > |   5) Search books by length                   |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -260,6 +264,9 @@ fun searchMenu() {
         when (option) {
             1 -> searchAuthorsByFirstName()
             2 -> searchAuthorsByEmail()
+            3 -> searchBooksByTitle()
+            4 -> searchBooksByGenre()
+            5 -> searchBooksByLength()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -282,6 +289,36 @@ fun searchAuthorsByEmail(){
     val searchResults = authorAPI.searchByEmail(searchEmail)
     if (searchResults.isEmpty()) {
         println("No authors found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchBooksByTitle(){
+        val searchContents = ScannerInput.readNextLine("Enter the book title to search by: ")
+        val searchResults = authorAPI.searchBookByTitle(searchContents)
+        if (searchResults.isEmpty()) {
+            println("No books found")
+        } else {
+            println(searchResults)
+        }
+}
+
+fun searchBooksByGenre(){
+    val searchContents = ValidateInput.readValidGenre("Enter the genre to search by: ")
+    val searchResults = authorAPI.searchBookByGenre(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No books found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchBooksByLength(){
+    val searchContents = ScannerInput.readNextInt("Enter a book length to search by: ")
+    val searchResults = authorAPI.searchBookByLength(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No books found")
     } else {
         println(searchResults)
     }

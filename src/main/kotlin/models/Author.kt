@@ -2,6 +2,7 @@ package models
 
 import utils.Utilities
 import utils.Utilities.isValidID
+import utils.Utilities.formatListString
 
 data class Author(
     var authorID: Int = 0,
@@ -12,7 +13,7 @@ data class Author(
     var publisher: String,
     var website: String,
     var books: MutableSet<Book> = mutableSetOf()
-        ) {
+) {
 
     private var lastBookId = 0
     private fun getBookId() = lastBookId++
