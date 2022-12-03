@@ -289,8 +289,8 @@ class AuthorAPITest {
             assertTrue(testTitle.contains("no books"))
 
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
-            val testTitle2 = populatedAuthors!!.searchBookByTitle("Should be EMPty").lowercase()
-            assertTrue(testTitle2.contains("no books"))
+            val testTitle2 = emptyAuthors!!.searchBookByTitle("Should be EMPty").lowercase()
+            assertFalse(testTitle2.contains("Should be EMPty"))
         }
 
         @Test

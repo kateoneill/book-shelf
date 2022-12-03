@@ -255,6 +255,7 @@ fun searchMenu() {
                   > |   1) Search authors by first name             |
                   > |   2) Search authors by email                  |
                   > |   3) Search books by title                    |
+                  > |   4) Search books by genre                    |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -263,6 +264,7 @@ fun searchMenu() {
             1 -> searchAuthorsByFirstName()
             2 -> searchAuthorsByEmail()
             3 -> searchBooksByTitle()
+            4 -> searchBooksByGenre()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -298,6 +300,16 @@ fun searchBooksByTitle(){
         } else {
             println(searchResults)
         }
+}
+
+fun searchBooksByGenre(){
+    val searchContents = ValidateInput.readValidGenre("Enter the genre to search by: ")
+    val searchResults = authorAPI.searchBookByGenre(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No books found")
+    } else {
+        println(searchResults)
+    }
 }
 
 
