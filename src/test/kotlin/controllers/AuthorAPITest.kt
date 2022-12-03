@@ -340,6 +340,36 @@ class AuthorAPITest {
             assertTrue(searchResults.contains("an artist of the floating world"))
             assertFalse(searchResults.contains("the buried giant"))
         }
+
+        @Test
+        fun `search books by length returns no books when no books with that length exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+            assertEquals(3, kazuoIshiguro!!.numberOfBooks())
+            val testTitle = populatedAuthors!!.searchBookByLength(900).lowercase()
+            assertTrue(testTitle.contains("no books"))
+
+            assertEquals(0, emptyAuthors!!.numberOfAuthors())
+            val testTitle2 = emptyAuthors!!.searchBookByLength(900).lowercase()
+            assertFalse(testTitle2.equals(900))
+        }
+
+        @Test
+        fun `search books by length returns books when books with that length exist`() {
+            assertEquals(6, populatedAuthors!!.numberOfAuthors())
+
+            var searchResults = populatedAuthors!!.searchBookByLength(120).lowercase()
+            assertTrue(searchResults.contains("kazuo"))
+            assertFalse(searchResults.contains("stephen"))
+
+            searchResults = populatedAuthors!!.searchBookByLength(200)
+            assertTrue(searchResults.contains("artist"))
+            assertTrue(searchResults.contains("world"))
+            assertFalse(searchResults.contains("never"))
+
+            searchResults = populatedAuthors!!.searchBookByLength(250).lowercase()
+            assertTrue(searchResults.contains("the buried giant"))
+            assertFalse(searchResults.contains("the artist of the floating world"))
+        }
     }
 
     @Nested
