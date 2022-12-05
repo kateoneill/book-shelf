@@ -110,7 +110,23 @@ class AuthorTest {
             assertTrue(SallyRooney!!.listBooksInOrderOfPageLength().lowercase().contains("no books"))
         }
 
+        @Test
+        fun `listBooksByRating returns Books when ArrayList has books stored`() {
+            assertEquals(6, kazuoIshiguro!!.numberOfBooks())
+            val notesString = kazuoIshiguro!!.listBooksByRating().lowercase()
+            assertTrue(notesString.contains("never let me go"))
+            assertTrue(notesString.contains("the buried giant"))
+            assertTrue(notesString.contains("an artist of the floating world"))
+            assertTrue(notesString.contains("remains of the day"))
+            assertTrue(notesString.contains("klara and the sun"))
+            assertTrue(notesString.contains("a pale view of hills"))
+        }
 
+        @Test
+        fun `listBooksByRating returns No Books Stored message when book ArrayList is empty`() {
+            assertEquals(0, SallyRooney!!.numberOfBooks())
+            assertTrue(SallyRooney!!.listBooksByRating().lowercase().contains("no books"))
+        }
     }
 
     @Nested
