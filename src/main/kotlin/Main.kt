@@ -31,6 +31,7 @@ fun mainMenu() : Int {
           > |   10) Search menu              |
           > |   11) List menu                |
           > |   12) Count menu               |
+          > |   13) Author Dashboard         |
           > ----------------------------------
           > |   0) Exit                      |
           > ----------------------------------
@@ -54,6 +55,7 @@ fun runMenu() {
             10 -> searchMenu()
             11 -> listMenu()
             12 -> countMenu()
+            13 -> getAuthorDashboard()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -431,5 +433,14 @@ fun countAuthorsBySurname() {
     val surname = ScannerInput.readNextLine("Enter surnmae to count by: ")
     val searchResults = authorAPI.numberOfAuthorsBySurname(surname)
     println(searchResults)
+}
+
+fun getAuthorDashboard() {
+    val author: Author? = askUserToChooseAuthor()
+    if (author != null) {
+        print(author.authorDashboard())
+    } else {
+        println("No books here, add some!!")
+    }
 }
 
