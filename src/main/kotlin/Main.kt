@@ -333,6 +333,8 @@ fun listMenu() {
                   > |   1) List by publisher                        |
                   > |   2) List by surname                          |
                   > |   3) List books that are owned                |
+                  > |   4) List books by length                     |
+                  > |   5) List books by rating                     |
                   > -------------------------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -341,6 +343,8 @@ fun listMenu() {
             1 -> listAuthorsByPublisher()
             2 -> listAuthorsBySurname()
             3 -> ListBooksThatAreOwned()
+            4 -> listBooksByLength()
+            5 -> listBooksByRating()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -372,6 +376,26 @@ fun ListBooksThatAreOwned() {
         println("Total books owned: ${authorAPI.numberOfBooksMarkedOwned()}")
     }
     println(authorAPI.listBooksMarkedOwned())
+}
+
+fun listBooksByLength() {
+    val author: Author? = askUserToChooseAuthor()
+    if (author!!.numberOfBooks() > 0){
+        print(author.listBooksInOrderOfPageLength())
+    }
+    else {
+        println("No books here, add some!!")
+    }
+}
+
+fun listBooksByRating() {
+    val author: Author? = askUserToChooseAuthor()
+    if (author!!.numberOfBooks() > 0){
+        print(author.listBooksByRating())
+    }
+    else {
+        println("No books here, add some!!")
+    }
 }
 
 fun countMenu() {
@@ -409,12 +433,3 @@ fun countAuthorsBySurname() {
     println(searchResults)
 }
 
-//fun listBooksByLength() {
-//    val author: Author? = askUserToChooseAuthor()
-//    if (author != null){
-//        println(author.listBooksInOrderOfPageLength())
-//    }
-//    else {
-//        println("No books here, add some!!")
-//    }
-//}

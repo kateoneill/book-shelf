@@ -33,4 +33,8 @@ object Utilities {
         itemsToFormat
             .joinToString(separator = "\n") { book ->  "\t$book" }
 
+    fun formatBookListString(notesToFormat: List<Book>): String =
+        notesToFormat
+            .joinToString(separator = "\n") { book ->  "$book" }
+
 }
