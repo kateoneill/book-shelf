@@ -69,22 +69,100 @@ fun runMenu() {
         val option = mainMenu()
         when (option) {
             1 -> addAuthor()
-            2 -> listAllAuthors()
-            3 -> updateAuthor()
-            4 -> deleteAuthor()
-            5 -> addBook()
-            6 -> updateBook()
-            7 -> deleteBook()
-            8 -> listAuthorsBooks()
-            9 -> markBookAsOwned()
-            10 -> searchMenu()
-            11 -> listMenu()
-            12 -> countMenu()
-            13 -> getAuthorDashboard()
+            2 -> updateAuthor()
+            3 -> deleteAuthor()
+            4 -> addBook()
+            5 -> updateBook()
+            6 -> deleteBook()
+            7 -> markBookAsOwned()
+            8 -> functionsMenu()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
     }while (true)
+}
+
+fun functionsMenu() {
+    if (authorAPI.numberOfAuthors() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  >                            Press 1 to turn page ->
+                  >        __________________   __________________
+                  >    .-/|                  \ /                  |\-.
+                  >    ||||   Search Menu     |    List Menu      ||||
+                  >    ||||                   |                   ||||
+                  >    ||||   Search by :     |   List:           ||||
+                  >    ||||   2. First name   |   7. Authors      ||||
+                  >    ||||   3. Email        |   8. Author books ||||
+                  >    ||||   4. Book Title   |   9. By publisher ||||
+                  >    ||||   5. Book Genre   |   10. By surname  ||||
+                  >    ||||   6. Book Length  |   11. Owned books ||||
+                  >    ||||                   |   12. By Length   ||||
+                  >    ||||                   |   13. By Rating   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||__________________ | __________________||||
+                  >    ||/===================\|/===================\||
+                  >    `--------------------~___~-------------------''
+         > Choose your chapter: """.trimMargin(">")
+        )
+
+        when (option) {
+            1 -> functionPage2()
+            2 -> searchAuthorsByFirstName()
+            3 -> searchAuthorsByEmail()
+            4 -> searchBooksByTitle()
+            5 -> searchBooksByGenre()
+            6 -> searchBooksByLength()
+            7 -> listAllAuthors()
+            8 -> listAuthorsBooks()
+            9 -> listAuthorsByPublisher()
+            10 -> listAuthorsBySurname()
+            11 -> ListBooksThatAreOwned()
+            12 -> listBooksByLength()
+            13 -> listBooksByRating()
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - There are no authors")
+    }
+}
+
+fun functionPage2() {
+    if (authorAPI.numberOfAuthors() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  > <- Press 1 to turn back
+                  >        __________________   __________________
+                  >    .-/|                  \ /                  |\-.
+                  >    ||||   Count Menu      |    Miscellaneous  ||||
+                  >    ||||                   |                   ||||
+                  >    ||||   Count :         |                   ||||
+                  >    ||||   2. All authors  |  5. Author        ||||
+                  >    ||||   3. By publisher |        dashboard  ||||
+                  >    ||||   4. By Surname   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||__________________ | __________________||||
+                  >    ||/===================\|/===================\||
+                  >    `--------------------~___~-------------------''
+         > Choose your chapter: """.trimMargin(">")
+        )
+
+        when (option) {
+            1 -> functionsMenu()
+            2 -> countAllAuthors()
+            3 -> countAuthorsByPublisher()
+            4 -> countAuthorsBySurname()
+            5 -> getAuthorDashboard()
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - There are no authors")
+    }
 }
 
 
@@ -274,32 +352,6 @@ fun markBookAsOwned() {
     }
 }
 
-fun searchMenu() {
-    if (authorAPI.numberOfAuthors() > 0) {
-        val option = ScannerInput.readNextInt(
-            """
-                  > -------------------------------------------------
-                  > |   1) Search authors by first name             |
-                  > |   2) Search authors by email                  |
-                  > |   3) Search books by title                    |
-                  > |   4) Search books by genre                    |
-                  > |   5) Search books by length                   |
-                  > -------------------------------------------------
-         > ==>> """.trimMargin(">")
-        )
-
-        when (option) {
-            1 -> searchAuthorsByFirstName()
-            2 -> searchAuthorsByEmail()
-            3 -> searchBooksByTitle()
-            4 -> searchBooksByGenre()
-            5 -> searchBooksByLength()
-            else -> println("Invalid option entered: " + option)
-        }
-    } else {
-        println("Option Invalid - There are no authors")
-    }
-}
 
 fun searchAuthorsByFirstName(){
     val searchName = ScannerInput.readNextLine("Enter first name to search by: ")
@@ -351,33 +403,6 @@ fun searchBooksByLength(){
     }
 }
 
-
-fun listMenu() {
-    if (authorAPI.numberOfAuthors() > 0) {
-        val option = ScannerInput.readNextInt(
-            """
-                  > -------------------------------------------------
-                  > |   1) List by publisher                        |
-                  > |   2) List by surname                          |
-                  > |   3) List books that are owned                |
-                  > |   4) List books by length                     |
-                  > |   5) List books by rating                     |
-                  > -------------------------------------------------
-         > ==>> """.trimMargin(">")
-        )
-
-        when (option) {
-            1 -> listAuthorsByPublisher()
-            2 -> listAuthorsBySurname()
-            3 -> ListBooksThatAreOwned()
-            4 -> listBooksByLength()
-            5 -> listBooksByRating()
-            else -> println("Invalid option entered: " + option)
-        }
-    } else {
-        println("Option Invalid - There are no authors")
-    }
-}
 fun listAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to list by: ")
     val searchResults = authorAPI.listAuthorsByPublisher(publisher)
@@ -425,28 +450,6 @@ fun listBooksByRating() {
     }
 }
 
-fun countMenu() {
-    if (authorAPI.numberOfAuthors() > 0) {
-        val option = ScannerInput.readNextInt(
-            """
-                  > -------------------------------------------------
-                  > |   1) Count all authors                        |
-                  > |   2) Count authors by publisher               |
-                  > |   3) Count authors by surname                 |
-                  > -------------------------------------------------
-         > ==>> """.trimMargin(">")
-        )
-
-        when (option) {
-            1 -> countAllAuthors()
-            2 -> countAuthorsByPublisher()
-            3 -> countAuthorsBySurname()
-            else -> println("Invalid option entered: " + option)
-        }
-    } else {
-        println("Option Invalid - There are no authors")
-    }
-}
 
 fun countAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to count by: ")
