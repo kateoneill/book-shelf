@@ -37,28 +37,30 @@ fun entryscreendisplay(): Int {
 
 fun mainMenu() : Int {
     return ScannerInput.readNextInt("""
-          > ----------------------------------
-          > |  Author MENU                   |
-          > |   1) Add an author             |
-          > |   2) List all authors          |
-          > |   3) Update author             |
-          > |   4) Delete an author          |
-          > ----------------------------------
-          > |  Book MENU                     |
-          > |   5) Add a book to author      |
-          > |   6) Update book               |
-          > |   7) Delete book               |
-          > |   8) List books                |
-          > |   9) Mark book as owned        |
-          > ----------------------------------
-          > |   10) Search menu              |
-          > |   11) List menu                |
-          > |   12) Count menu               |
-          > |   13) Author Dashboard         |
-          > ----------------------------------
-          > |   0) Exit                      |
-          > ----------------------------------
-          > Choose:""".trimMargin(">"))
+          >       ___              __              __         ______
+          >     / __ )____  ____  / /__      _____/ /_  ___  / / __/
+          >    / __  / __ \/ __ \/ //_/_____/ ___/ __ \/ _ \/ / /_  
+          >   / /_/ / /_/ / /_/ / ,< /_____(__  ) / / /  __/ / __/  
+          >  /_____/\____/\____/_/|_|     /____/_/ /_/\___/_/_/     
+          >                                                      
+          >                 _____________________________
+          >                /                            /  ,
+          >               /    TABLE OF CONTENTS       /  /
+          >              /   AUTHOR                   /  /
+          >             /     1. ADD AUTHOR          /  /
+          >            /     2. UPDATE AUTHOR       /  /
+          >           /     3. DELETE AUTHOR       /  /
+          >          /    BOOK                    /  /
+          >         /      4. ADD BOOK           /  /
+          >        /      5. UPDATE BOOK        /  /
+          >       /      6. DELETE BOOK        /  /
+          >      /      7. MARK OWN BOOK      /  /
+          >     /     Other                  /  /
+          >    /      8. Functions menu     /  /
+          >   /____________________________/  /
+          >  (____________________________(  /
+                      
+          > Choose your chapter:""".trimMargin(">"))
 }
 
 
