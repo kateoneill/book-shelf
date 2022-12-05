@@ -9,7 +9,30 @@ import utils.ValidateInput
 private val authorAPI = AuthorAPI(JSONSerializer(File("authors.json")))
 
 fun main(args: Array<String>) {
-    runMenu();
+    entryScreen();
+}
+
+fun entryScreen() {
+    do {
+        val option = entryscreendisplay()
+        when (option) {
+            1 -> runMenu()
+            else -> runMenu()
+        }
+    } while (true)
+}
+fun entryscreendisplay(): Int {
+    return ScannerInput.readNextInt("""
+      >        .---.               .---.        
+      >    .---|---|   .---.       |   |   .---.___ 
+      > .--|===|   |---|___|.--.___|   |---|:::|   |--.
+      > |  | B | O | O | K | - | S | H | E | L | F |  |
+      > |  |   |   |===|   |===|   |   |   |:::|   |  |
+      > |  |   |   |   |___|___|   |   |___|   |   |  |
+      > |~~|===|---|===|~~~|~~~|%%%|   |---|:::|~~~|  |
+      > ^--^---'---^---^---^---^---^---'--_^---^---^--^
+      >    Press a number to delve into the books!
+      >    ->>  """.trimMargin(">"))
 }
 
 fun mainMenu() : Int {
