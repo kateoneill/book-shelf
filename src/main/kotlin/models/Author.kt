@@ -78,6 +78,49 @@ data class Author(
         return if (books.isEmpty()) "No books stored"
         else  Utilities.formatBookListString(books.sortedByDescending { books -> books.bookRating })
     }
+
+    fun authorDashboard(): String{
+        return """
+    >                    Dashboard for $firstName $surname
+    >                    ---------------------------------
+    > $biography
+    > E-mail: $email
+    > Site: $website
+    > ----------------------------------------------------------------------------------------
+    > 
+    > Number of books: ${numberOfBooks()}
+    > 
+    > Genres: ${genres()}
+    > 
+    > Books:
+    > ${bookRating()}
+        
+        
+    """.trimMargin(">")
+    }
+
+    fun genres(): String {
+        var listOfGenres=""
+        for(book in books) {
+            if(book.bookGenre.isEmpty()){
+                "no genres"
+            }
+            else {
+                listOfGenres += "\t${book.bookGenre}\t"
+            }
+        }
+        return if (listOfGenres == "") "No books found with genre"
+        else listOfGenres
+    }
+
+    fun bookRating(): String {
+        var bookDetails=""
+        for(book in books) {
+            bookDetails += "${book.bookProgress} = ${book.bookTitle}(${book.bookPace} pace)  :  ${book.bookRating} star\n"
+        }
+        return if (numberOfBooks() == 0) "No books"
+            else bookDetails
+    }
 }
 
 
