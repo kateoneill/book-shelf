@@ -188,5 +188,39 @@ class AuthorTest {
         }
     }
 
+    @Nested
+    inner class Dashboard {
+        @Test
+        fun `listGenresfromBooks returns genres when ArrayList has books stored`() {
+            assertEquals(6, kazuoIshiguro!!.numberOfBooks())
+            val notesString = kazuoIshiguro!!.genres().lowercase()
+            assertTrue(notesString.contains("literary fiction"))
+            assertTrue(notesString.contains("romance"))
+            assertTrue(notesString.contains("mystery"))
+            assertTrue(notesString.contains("thriller"))
+            assertTrue(notesString.contains("ya"))
+            assertTrue(notesString.contains("sci-fi"))
+        }
 
+        @Test
+        fun `listGenresfromBooks returns No genresmessage when book ArrayList is empty`() {
+            assertEquals(0, SallyRooney!!.numberOfBooks())
+            assertTrue(SallyRooney!!.genres().lowercase().contains("no books"))
+        }
+
+        @Test
+        fun `listbookRating returns books with relevant data when ArrayList has books stored`() {
+            assertEquals(6, kazuoIshiguro!!.numberOfBooks())
+            val notesString = kazuoIshiguro!!.bookRating().lowercase()
+            assertTrue(notesString.contains("never let me go"))
+            assertTrue(notesString.contains("medium"))
+            assertTrue(notesString.contains("currently reading"))
+        }
+
+        @Test
+        fun `listBookRating returns No books when book ArrayList is empty`() {
+            assertEquals(0, SallyRooney!!.numberOfBooks())
+            assertTrue(SallyRooney!!.bookRating().lowercase().contains("no books"))
+        }
+    }
 }
