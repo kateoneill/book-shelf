@@ -26,15 +26,24 @@ object Utilities {
     @JvmStatic
     fun formatListString(notesToFormat: List<Author>): String =
         notesToFormat
-            .joinToString(separator = "\n") { author ->  "$author" }
+            .joinToString(separator = "\n") { author ->  author.toString() }
 
     @JvmStatic
     fun formatSetString(itemsToFormat: Set<Book>): String =
         itemsToFormat
-            .joinToString(separator = "\n") { book ->  "\t$book" }
+            .joinToString(separator = "\n") { book ->  "Book #${book.bookID}" +
+                    "\n Title: ${book.bookTitle}(${book.bookRating}*)   ${book.bookLength}" +
+                    "\n Genre: ${book.bookGenre}  Pace:${book.bookPace}"+
+                    "\n Is book owned: ${book.isBookOwned} "+
+                    "\n This book is ${book.bookProgress}" }
 
     fun formatBookListString(notesToFormat: List<Book>): String =
         notesToFormat
-            .joinToString(separator = "\n") { book ->  "$book" }
+            .joinToString(separator = "\n") { book ->
+                    "\tBook #${book.bookID}" +
+                    "\n  \tTitle: ${book.bookTitle}(${book.bookRating}*)   ${book.bookLength} pages" +
+                    "\n  \tGenre: ${book.bookGenre}  Pace:${book.bookPace}"+
+                    "\n  \tIs book owned: ${book.isBookOwned} "+
+                    "\n  \tThis book is ${book.bookProgress}\n" }
 
 }

@@ -121,6 +121,17 @@ data class Author(
         return if (numberOfBooks() == 0) "No books"
             else bookDetails
     }
+
+    override fun toString(): String {
+        return "\n ID: $authorID    Name: $firstName $surname" +
+                "\n $biography"+
+                "\n Available at: $email " +
+                "\n Find more on $website" +
+                "\n Currently published by $publisher" +
+                "\n Books: " +
+                "\n       ${listBooks()}"+
+                "\n---------------------------------------"
+        }
 }
 
 
