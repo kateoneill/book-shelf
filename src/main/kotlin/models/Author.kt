@@ -73,6 +73,11 @@ data class Author(
         return if (books.isEmpty()) "No books stored"
         else  Utilities.formatBookListString(books.sortedBy { books -> books.bookLength })
     }
+
+    fun listBooksByRating(): String {
+        return if (books.isEmpty()) "No books stored"
+        else  Utilities.formatBookListString(books.sortedBy { books -> books.bookRating })
+    }
 }
 
 
