@@ -9,6 +9,7 @@ import java.util.ArrayList
 
 
 class AuthorAPI(serializerType: Serializer) {
+    private var serializer: Serializer = serializerType
 
     private var authors = ArrayList<Author>()
 
@@ -160,4 +161,14 @@ class AuthorAPI(serializerType: Serializer) {
                 }
                 listOfBooksMarkedOwned
             }
+
+    @Throws(Exception::class)
+    fun load() {
+        authors = serializer.read() as ArrayList<Author>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(authors)
+    }
 }

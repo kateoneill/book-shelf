@@ -486,3 +486,20 @@ fun getAuthorDashboard() {
     }
 }
 
+fun save() {
+    try {
+        authorAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+// load notes
+fun load() {
+    try {
+        authorAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
+}
+
