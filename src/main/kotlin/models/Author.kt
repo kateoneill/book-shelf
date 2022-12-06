@@ -1,8 +1,6 @@
 package models
 
 import utils.Utilities
-import utils.Utilities.isValidID
-import utils.Utilities.formatListString
 
 data class Author(
     var authorID: Int = 0,
@@ -36,8 +34,8 @@ data class Author(
     fun update(id: Int, newBook: Book): Boolean {
         val foundBook = findOne(id)
 
-        //if the object exists, use the details passed in the newItem parameter to
-        //update the found object in the Set
+        // if the object exists, use the details passed in the newItem parameter to
+        // update the found object in the Set
         if (foundBook != null) {
             foundBook.bookTitle = newBook.bookTitle
             foundBook.bookGenre = newBook.bookGenre
@@ -49,14 +47,13 @@ data class Author(
             return true
         }
 
-        //if the object was not found, return false, indicating that the update was not successful
+        // if the object was not found, return false, indicating that the update was not successful
         return false
     }
 
     fun listBooks() =
         if (books.isEmpty()) "\tNO BOOKS ADDED"
         else Utilities.formatSetString(books)
-
 
     fun checkBookOwnershipStatus(): Boolean {
         if (books.isNotEmpty()) {
@@ -66,20 +63,20 @@ data class Author(
                 }
             }
         }
-        return true //a note with empty items can be archived, or all items are complete
+        return true // a note with empty items can be archived, or all items are complete
     }
 
     fun listBooksInOrderOfPageLength(): String {
         return if (books.isEmpty()) "No books stored"
-        else  Utilities.formatBookListString(books.sortedBy { books -> books.bookLength })
+        else Utilities.formatBookListString(books.sortedBy { books -> books.bookLength })
     }
 
     fun listBooksByRating(): String {
         return if (books.isEmpty()) "No books stored"
-        else  Utilities.formatBookListString(books.sortedByDescending { books -> books.bookRating })
+        else Utilities.formatBookListString(books.sortedByDescending { books -> books.bookRating })
     }
 
-    fun authorDashboard(): String{
+    fun authorDashboard(): String {
         return """
     >                    Dashboard for $firstName $surname
     >                    ---------------------------------
@@ -100,12 +97,11 @@ data class Author(
     }
 
     fun genres(): String {
-        var listOfGenres=""
-        for(book in books) {
-            if(book.bookGenre.isEmpty()){
+        var listOfGenres = ""
+        for (book in books) {
+            if (book.bookGenre.isEmpty()) {
                 "no genres"
-            }
-            else {
+            } else {
                 listOfGenres += "\t${book.bookGenre}\t"
             }
         }
@@ -114,25 +110,22 @@ data class Author(
     }
 
     fun bookRating(): String {
-        var bookDetails=""
-        for(book in books) {
+        var bookDetails = ""
+        for (book in books) {
             bookDetails += "${book.bookProgress} = ${book.bookTitle}(${book.bookPace} pace)  :  ${book.bookRating} star\n"
         }
         return if (numberOfBooks() == 0) "No books"
-            else bookDetails
+        else bookDetails
     }
 
     override fun toString(): String {
         return "\n ID: $authorID    Name: $firstName $surname" +
-                "\n $biography"+
-                "\n Available at: $email " +
-                "\n Find more on $website" +
-                "\n Currently published by $publisher" +
-                "\n Books: " +
-                "\n       ${listBooks()}"+
-                "\n---------------------------------------"
-        }
+            "\n $biography" +
+            "\n Available at: $email " +
+            "\n Find more on $website" +
+            "\n Currently published by $publisher" +
+            "\n Books: " +
+            "\n       ${listBooks()}" +
+            "\n---------------------------------------"
+    }
 }
-
-
-

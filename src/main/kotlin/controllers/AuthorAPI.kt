@@ -2,11 +2,8 @@ package controllers
 
 import models.Author
 import persistence.Serializer
-import utils.Utilities
 import utils.Utilities.formatListString
-import utils.Utilities.isValidID
 import java.util.ArrayList
-
 
 class AuthorAPI(serializerType: Serializer) {
     private var serializer: Serializer = serializerType
@@ -23,7 +20,7 @@ class AuthorAPI(serializerType: Serializer) {
 
     fun delete(id: Int) = authors.removeIf { author -> author.authorID == id }
 
-    fun findAuthor(authorID : Int) =  authors.find{ author -> author.authorID == authorID }
+    fun findAuthor(authorID: Int) = authors.find { author -> author.authorID == authorID }
 
     fun update(id: Int, author: Author?): Boolean {
         // find the note object by the index number
@@ -45,7 +42,7 @@ class AuthorAPI(serializerType: Serializer) {
     }
 
     fun listAllAuthors(): String =
-        if  (authors.isEmpty()) "No notes stored"
+        if (authors.isEmpty()) "No notes stored"
         else formatListString(authors)
 
     fun numberOfAuthors(): Int {
@@ -79,12 +76,12 @@ class AuthorAPI(serializerType: Serializer) {
         }
 
     fun numberOfAuthorsByPublisher(publisher: String): Int = authors.count {
-            author: Author ->
+        author: Author ->
         author.publisher == publisher
     }
 
     fun numberOfAuthorsBySurname(surname: String): Int = authors.count {
-            author: Author ->
+        author: Author ->
         author.surname == surname
     }
 
@@ -149,18 +146,18 @@ class AuthorAPI(serializerType: Serializer) {
     }
 
     fun listBooksMarkedOwned(): String =
-            if (numberOfAuthors() == 0) "No authors stored"
-            else {
-                var listOfBooksMarkedOwned = ""
-                for (author in authors) {
-                    for (book in author.books) {
-                        if (!book.isBookOwned) {
-                            listOfBooksMarkedOwned += author.firstName +" " +author.surname + ": " + book.bookTitle + "\n"
-                        }
+        if (numberOfAuthors() == 0) "No authors stored"
+        else {
+            var listOfBooksMarkedOwned = ""
+            for (author in authors) {
+                for (book in author.books) {
+                    if (!book.isBookOwned) {
+                        listOfBooksMarkedOwned += author.firstName + " " + author.surname + ": " + book.bookTitle + "\n"
                     }
                 }
-                listOfBooksMarkedOwned
             }
+            listOfBooksMarkedOwned
+        }
 
     @Throws(Exception::class)
     fun load() {

@@ -5,7 +5,7 @@ import models.Book
 
 object Utilities {
 
-    //NOTE: JvmStatic annotation means that the methods are static (i.e. we can call them over the class
+    // NOTE: JvmStatic annotation means that the methods are static (i.e. we can call them over the class
     //      name; we don't have to create an object of Utilities to use them.
 
     @JvmStatic
@@ -21,24 +21,26 @@ object Utilities {
     @JvmStatic
     fun formatListString(notesToFormat: List<Author>): String =
         notesToFormat
-            .joinToString(separator = "\n") { author ->  author.toString() }
+            .joinToString(separator = "\n") { author -> author.toString() }
 
     @JvmStatic
     fun formatSetString(itemsToFormat: Set<Book>): String =
         itemsToFormat
-            .joinToString(separator = "\n") { book ->  "Book #${book.bookID}" +
+            .joinToString(separator = "\n") { book ->
+                "Book #${book.bookID}" +
                     "\n Title: ${book.bookTitle}(${book.bookRating}*)   ${book.bookLength}" +
-                    "\n Genre: ${book.bookGenre}  Pace:${book.bookPace}"+
-                    "\n Is book owned: ${book.isBookOwned} "+
-                    "\n This book is ${book.bookProgress}" }
+                    "\n Genre: ${book.bookGenre}  Pace:${book.bookPace}" +
+                    "\n Is book owned: ${book.isBookOwned} " +
+                    "\n This book is ${book.bookProgress}"
+            }
 
     fun formatBookListString(notesToFormat: List<Book>): String =
         notesToFormat
             .joinToString(separator = "\n") { book ->
-                    "\tBook #${book.bookID}" +
+                "\tBook #${book.bookID}" +
                     "\n  \tTitle: ${book.bookTitle}(${book.bookRating}*)   ${book.bookLength} pages" +
-                    "\n  \tGenre: ${book.bookGenre}  Pace:${book.bookPace}"+
-                    "\n  \tIs book owned: ${book.isBookOwned} "+
-                    "\n  \tThis book is ${book.bookProgress}\n" }
-
+                    "\n  \tGenre: ${book.bookGenre}  Pace:${book.bookPace}" +
+                    "\n  \tIs book owned: ${book.isBookOwned} " +
+                    "\n  \tThis book is ${book.bookProgress}\n"
+            }
 }

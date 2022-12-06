@@ -20,7 +20,7 @@ class AuthorAPITest {
     private var StephenKing: Author? = null
     private var akwaekeEmezi: Author? = null
     private var ColsonWhitehead: Author? = null
-    private var NeverGo : Book? = null
+    private var NeverGo: Book? = null
     private var ArtistWorld: Book? = null
     private var BuriedGiant: Book? = null
 
@@ -29,15 +29,15 @@ class AuthorAPITest {
 
     @BeforeEach
     fun setup() {
-        kazuoIshiguro = Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "https://www.kazuoishiguro.com",mutableSetOf<Book>())
+        kazuoIshiguro = Author(0, "Kazuo", "Ishiguro", "Sir Kazuo Ishiguro OBE FRSA is a British novelist, screenwriter, musician, and short-story writer", "kishiguro@email.com", "Faber & Faber", "https://www.kazuoishiguro.com", mutableSetOf<Book>())
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "https://www.sally.com")
-        TaylorJenkinsReid = Author(0, "Taylor","Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novel The Seven Husbands of Evelyn Hugo", "tjreidbooks@email.com", "Penguin", "https://www.taylorjenkinsreid.com")
+        TaylorJenkinsReid = Author(0, "Taylor", "Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novel The Seven Husbands of Evelyn Hugo", "tjreidbooks@email.com", "Penguin", "https://www.taylorjenkinsreid.com")
         StephenKing = Author(0, "Stephen", "King", "Stephen King is an American author of horror, suspense, crime, science-fiction, and fantasy novels", "sking@email.com", "Simon & Schuster", "http://www.stephenking.com")
-        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@email.com", "Simon & Schuster", "https://www.akwa.com")
-        ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@email.com", "Little, Brown and Company", "http://www.colsonwhitehead.com")
+        akwaekeEmezi = Author(0, "Akwaeke", "Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@email.com", "Simon & Schuster", "https://www.akwa.com")
+        ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@gmail.com", "Little, Brown and Company", "http://www.colsonwhitehead.com")
         NeverGo = Book(0, "Never let me go", 5, "Literary fiction", "medium", true, 120, "currently reading")
-        ArtistWorld = Book(0, "An artist of the floating world",4, "Mystery", "fast", false, 200,"finished")
-        BuriedGiant = Book(0, "The buried giant", 5, "Thriller", "slow", false, 250,"currently reading")
+        ArtistWorld = Book(0, "An artist of the floating world", 4, "Mystery", "fast", false, 200, "finished")
+        BuriedGiant = Book(0, "The buried giant", 5, "Thriller", "slow", false, 250, "currently reading")
 
         // adding 5 Note to the notes api
         populatedAuthors!!.add(kazuoIshiguro!!)
@@ -101,7 +101,7 @@ class AuthorAPITest {
             assertEquals(akwaekeEmezi, populatedAuthors!!.findAuthor(4))
             assertEquals("aemeziauthor@email.com", populatedAuthors!!.findAuthor(4)!!.email)
             assertEquals("Simon & Schuster", populatedAuthors!!.findAuthor(4)!!.publisher)
-            assertEquals("https://www.sallyrooney.com", populatedAuthors!!.findAuthor(4)!!.website)
+            assertEquals("https://www.akwa.com", populatedAuthors!!.findAuthor(4)!!.website)
 
             // update note 5 with new information and ensure contents updated successfully
             assertTrue(populatedAuthors!!.update(4, Author(0, "Akwaeke", "Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziwritesbooks@email.com", "Book publisher", "http://www.emezi.com")))
@@ -132,7 +132,7 @@ class AuthorAPITest {
     }
 
     @Nested
-    inner class ListAuthors{
+    inner class ListAuthors {
 
         @Test
         fun `listAllAuthors returns No Authors Stored message when ArrayList is empty`() {
@@ -154,7 +154,7 @@ class AuthorAPITest {
         @Test
         fun `listAuthorsByPublisher returns No authors when ArrayList is empty`() {
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
-            assertTrue(emptyAuthors!!.listAuthorsByPublisher("brees books").lowercase().contains("no authors") )
+            assertTrue(emptyAuthors!!.listAuthorsByPublisher("brees books").lowercase().contains("no authors"))
         }
 
         @Test
@@ -189,7 +189,7 @@ class AuthorAPITest {
         @Test
         fun `listAuthorsBySurname returns No authors when ArrayList is empty`() {
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
-            assertTrue(emptyAuthors!!.listAuthorsBySurname("quinn").lowercase().contains("no authors") )
+            assertTrue(emptyAuthors!!.listAuthorsBySurname("quinn").lowercase().contains("no authors"))
         }
 
         @Test
@@ -224,7 +224,7 @@ class AuthorAPITest {
         @Test
         fun `listBooksMarkedOwned returns No books when ArrayList is empty`() {
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
-            assertTrue(emptyAuthors!!.listBooksMarkedOwned().lowercase().contains("no authors") )
+            assertTrue(emptyAuthors!!.listBooksMarkedOwned().lowercase().contains("no authors"))
         }
 
         @Test
@@ -249,7 +249,7 @@ class AuthorAPITest {
 
     @Nested
     inner class SearchMethods {
-        //testing search by name
+        // testing search by name
         @Test
         fun `search authors by first name returns when no authors with that name exist`() {
             assertEquals(6, populatedAuthors!!.numberOfAuthors())
@@ -278,7 +278,7 @@ class AuthorAPITest {
             assertFalse(searchResults.contains("Colson"))
         }
 
-        //testing search by email
+        // testing search by email
         @Test
         fun `search authors by emails returns when no authors with that email exist`() {
             assertEquals(6, populatedAuthors!!.numberOfAuthors())
@@ -300,7 +300,7 @@ class AuthorAPITest {
             searchResults = populatedAuthors!!.searchByEmail("@email.com")
             assertTrue(searchResults.contains("Sally"))
             assertTrue(searchResults.contains("Stephen"))
-            assertFalse(searchResults.contains("Akwaeke"))
+            assertFalse(searchResults.contains("Colson"))
 
             searchResults = populatedAuthors!!.searchByEmail("SkiNG@emAil.COm")
             assertTrue(searchResults.contains("Stephen"))
