@@ -261,7 +261,7 @@ private fun addBook() {
                         bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
                         bookLength = ScannerInput.readNextInt("\t Enter book length: "),
                         bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
-                        bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished reading): ")
+                        bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished): ")
                     )
             )
         )
@@ -295,7 +295,7 @@ fun updateBook() {
             val newGenre = ValidateInput.readValidGenre("Enter new book genre: ")
             val newPace = ValidateInput.readValidPace("Enter new book pace(slow/medium/fast): ")
             val newLength = ScannerInput.readNextInt("Enter new book length: ")
-            val newProgress = ValidateInput.readValidProgress("Update book progress(to-be read, currently reading, finished reading): ")
+            val newProgress = ValidateInput.readValidProgress("Update book progress(to-be read, currently reading, finished): ")
             if (author.update(
                     book.bookID,
                     Book(
