@@ -2,7 +2,7 @@ package utils
 
 object GenreValidation {
     @JvmStatic
-    val genreOptions = setOf("Horror", "Action", "Fantasy", "Auto-biography", "Thriller", "Literary Fiction", "Memoir","Self-help", "Spirituality","Sci-fi","Romance","Contemporary","YA", "Children","Graphic Novel","Mystery")
+    val genreOptions = setOf("Horror", "Action", "Fantasy", "Auto-biography", "Thriller", "Literary Fiction", "Memoir", "Self-help", "Spirituality", "Sci-fi", "Romance", "Contemporary", "YA", "Children", "Graphic Novel", "Mystery")
 
     @JvmStatic
     fun isValidGenre(genreToCheck: String?): Boolean {

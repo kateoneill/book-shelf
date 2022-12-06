@@ -1,7 +1,5 @@
 package models
 
-import persistence.Serializer
-
 data class Book(
     var bookID: Int = 0,
     var bookTitle: String,
@@ -10,6 +8,5 @@ data class Book(
     var bookPace: String,
     var isBookOwned: Boolean = false,
     var bookLength: Int,
-    var bookProgress: String ){
-
-}
+    var bookProgress: String
+)

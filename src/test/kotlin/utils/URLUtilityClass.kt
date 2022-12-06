@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class URLUtilityClass {
     @Test
-    fun `when URL fits regex standard return true`(){
+    fun `when URL fits regex standard return true`() {
         Assertions.assertTrue(URLValidation.isValidURL("http://www.website.com"))
         Assertions.assertTrue(URLValidation.isValidURL("https://www.web-site.co.uk"))
         Assertions.assertTrue(URLValidation.isValidURL("https://www.web&site.com"))
@@ -16,7 +16,7 @@ class URLUtilityClass {
     }
 
     @Test
-    fun `when URL does not comply with regex standard return false`(){
+    fun `when URL does not comply with regex standard return false`() {
         Assertions.assertFalse(URLValidation.isValidURL("website"))
         Assertions.assertFalse(URLValidation.isValidURL("website.com"))
         Assertions.assertFalse(URLValidation.isValidURL("www.website.com"))

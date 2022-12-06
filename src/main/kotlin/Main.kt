@@ -3,8 +3,8 @@ import models.Author
 import models.Book
 import persistence.JSONSerializer
 import utils.ScannerInput
-import java.io.File
 import utils.ValidateInput
+import java.io.File
 
 private val authorAPI = AuthorAPI(JSONSerializer(File("authors.json")))
 
@@ -16,7 +16,7 @@ val white = "\u001b[37m"
 val reset = "\u001b[0m"
 
 fun main(args: Array<String>) {
-    entryScreen();
+    entryScreen()
 }
 
 fun entryScreen() {
@@ -29,7 +29,8 @@ fun entryScreen() {
     } while (true)
 }
 fun entryscreendisplay(): Int {
-    return ScannerInput.readNextInt("""
+    return ScannerInput.readNextInt(
+        """
       >$cyan        .---.               .---.        
       >    .---|---|   .---.       |   |   .---.___ 
       > .--|===|   |---|___|.--.___|   |---|:::|   |--.
@@ -39,11 +40,13 @@ fun entryscreendisplay(): Int {
       > |~~|===|---|===|~~~|~~~|%%%|   |---|:::|~~~|  |
       > ^--^---'---^---^---^---^---^---'--_^---^---^--^$reset
       >   $magenta Press a number to delve into the books!
-      >    ->> $reset """.trimMargin(">"))
+      >    ->> $reset """.trimMargin(">")
+    )
 }
 
-fun mainMenu() : Int {
-    return ScannerInput.readNextInt("""
+fun mainMenu(): Int {
+    return ScannerInput.readNextInt(
+        """
           >$cyan       ___              __              __         ______
           >     / __ )____  ____  / /__      _____/ /_  ___  / / __/
           >    / __  / __ \/ __ \/ //_/_____/ ___/ __ \/ _ \/ / /_  
@@ -69,9 +72,9 @@ fun mainMenu() : Int {
               >   /___________________________/  /
               >  (___________________________(  /
                       
-          > Choose your chapter:$reset""".trimMargin(">"))
+          > Choose your chapter:$reset""".trimMargin(">")
+    )
 }
-
 
 fun runMenu() {
     do {
@@ -90,7 +93,7 @@ fun runMenu() {
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
-    }while (true)
+    } while (true)
 }
 
 fun functionsMenu() {
@@ -183,7 +186,6 @@ fun functionPage2() {
     }
 }
 
-
 fun addAuthor() {
     val firstName = ScannerInput.readNextLine("Enter authors first name: ")
     val surname = ScannerInput.readNextLine("Enter authors surname: ")
@@ -191,8 +193,12 @@ fun addAuthor() {
     val email = ValidateInput.readValidEmail("Enter authors email: ")
     val publisher = ScannerInput.readNextLine("Enter authors publishing company: ")
     val website = ValidateInput.readValidURL("Enter authors website (structure https://www.websitename.com): ")
-    val isAdded = authorAPI.add(Author(0,
-        firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website))
+    val isAdded = authorAPI.add(
+        Author(
+            0,
+            firstName = firstName, surname = surname, biography = biography, email = email, publisher = publisher, website = website
+        )
+    )
 
     if (isAdded) {
         println("Added Successfully")
@@ -214,7 +220,7 @@ fun updateAuthor() {
             val publisher = ScannerInput.readNextLine("Enter authors publishing company:")
             val website = ValidateInput.readValidURL("Enter authors website:")
             // pass the index of the author and the new author details to AuthorAPI for updating and check for success.
-            if (authorAPI.update(id, Author(0, firstName, surname, biography, email, publisher, website))){
+            if (authorAPI.update(id, Author(0, firstName, surname, biography, email, publisher, website))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -225,7 +231,7 @@ fun updateAuthor() {
     }
 }
 
-fun deleteAuthor(){
+fun deleteAuthor() {
     listAllAuthors()
 
     if (authorAPI.numberOfAuthors() > 0) {
@@ -245,24 +251,26 @@ fun listAllAuthors() = println(authorAPI.listAllAuthors())
 
 fun countAllAuthors() = println(authorAPI.numberOfAuthors())
 
-private fun addBook(){
+private fun addBook() {
     val author: Author? = askUserToChooseAuthor()
     if (author != null) {
-        if (author.addBook(Book(
-                bookTitle = ScannerInput.readNextLine("\t Enter book title: "),
-                bookRating = ValidateInput.readValidRating("\t Enter book rating(1-5): "),
-                bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
-                bookLength = ScannerInput.readNextInt("\t Enter book length: "),
-                bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
-                bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished reading): ")
-                )
-            ))
+        if (author.addBook(
+                Book(
+                        bookTitle = ScannerInput.readNextLine("\t Enter book title: "),
+                        bookRating = ValidateInput.readValidRating("\t Enter book rating(1-5): "),
+                        bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
+                        bookLength = ScannerInput.readNextInt("\t Enter book length: "),
+                        bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
+                        bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished reading): ")
+                    )
+            )
+        )
             println("Add Successful!")
         else println("Add NOT Successful")
     }
 }
 
-fun deleteBook(){
+fun deleteBook() {
     val author: Author? = askUserToChooseAuthor()
     if (author != null) {
         val book: Book? = askUserToChooseBook(author)
@@ -277,7 +285,7 @@ fun deleteBook(){
     }
 }
 
-fun updateBook(){
+fun updateBook() {
     val author: Author? = askUserToChooseAuthor()
     if (author != null) {
         val book: Book? = askUserToChooseBook(author)
@@ -288,14 +296,18 @@ fun updateBook(){
             val newPace = ValidateInput.readValidPace("Enter new book pace(slow/medium/fast): ")
             val newLength = ScannerInput.readNextInt("Enter new book length: ")
             val newProgress = ValidateInput.readValidProgress("Update book progress(to-be read, currently reading, finished reading): ")
-            if (author.update(book.bookID, Book(
-                    bookTitle = newTitle,
-                    bookRating = newRating,
-                    bookGenre = newGenre,
-                    bookPace = newPace,
-                    bookLength = newLength,
-                    bookProgress = newProgress
-                ))) {
+            if (author.update(
+                    book.bookID,
+                    Book(
+                            bookTitle = newTitle,
+                            bookRating = newRating,
+                            bookGenre = newGenre,
+                            bookPace = newPace,
+                            bookLength = newLength,
+                            bookProgress = newProgress
+                        )
+                )
+            ) {
                 println("Book details updated")
             } else {
                 println("Book details NOT updated")
@@ -308,15 +320,14 @@ fun updateBook(){
 
 fun listAuthorsBooks() {
     val author: Author? = askUserToChooseAuthor()
-        if (author != null){
-            print(author.listBooks())
-        }
-    else {
+    if (author != null) {
+        print(author.listBooks())
+    } else {
         println("No books here, add some!!")
     }
 }
-fun exitApp(){
-    println( "Bye bye, come back soon 👋")
+fun exitApp() {
+    println("Bye bye, come back soon 👋")
     println("exitApp() function invoked")
     System.exit(0)
 }
@@ -325,9 +336,8 @@ private fun askUserToChooseBook(author: Author): Book? {
     if (author.numberOfBooks() > 0) {
         print(author.listBooks())
         return author.findOne(ScannerInput.readNextInt("\nEnter the id of the book: "))
-    }
-    else{
-        println ("No items for chosen author")
+    } else {
+        println("No items for chosen author")
         return null
     }
 }
@@ -337,9 +347,8 @@ private fun askUserToChooseAuthor(): Author? {
     if (authorAPI.numberOfAuthors() > 0) {
         val author = authorAPI.findAuthor(ScannerInput.readNextInt("\nEnter the id of the author: "))
         if (author != null) {
-            return author //chosen author is active
-        }
-        else {
+            return author // chosen author is active
+        } else {
             println("author id is not valid")
         }
     }
@@ -355,14 +364,13 @@ fun markBookAsOwned() {
             if (book.isBookOwned) {
                 changeStatus =
                     ScannerInput.readNextChar("The book is currently owned...do you want to mark it as un-owned?")
-                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
-                    book.isBookOwned= false
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
+                    book.isBookOwned = false
                 println("Book has been marked as un-owned")
-            }
-            else {
+            } else {
                 changeStatus =
                     ScannerInput.readNextChar("The book is currently un-owned...do you want to mark it as owned?")
-                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
                     book.isBookOwned = true
                 println("Book has been marked as owned")
             }
@@ -370,8 +378,7 @@ fun markBookAsOwned() {
     }
 }
 
-
-fun searchAuthorsByFirstName(){
+fun searchAuthorsByFirstName() {
     val searchName = ScannerInput.readNextLine("Enter first name to search by: ")
     val searchResults = authorAPI.searchByName(searchName)
     if (searchResults.isEmpty()) {
@@ -381,7 +388,7 @@ fun searchAuthorsByFirstName(){
     }
 }
 
-fun searchAuthorsByEmail(){
+fun searchAuthorsByEmail() {
     val searchEmail = ValidateInput.readValidEmail("Enter email to search by: ")
     val searchResults = authorAPI.searchByEmail(searchEmail)
     if (searchResults.isEmpty()) {
@@ -391,17 +398,17 @@ fun searchAuthorsByEmail(){
     }
 }
 
-fun searchBooksByTitle(){
-        val searchContents = ScannerInput.readNextLine("Enter the book title to search by: ")
-        val searchResults = authorAPI.searchBookByTitle(searchContents)
-        if (searchResults.isEmpty()) {
-            println("No books found")
-        } else {
-            println(searchResults)
-        }
+fun searchBooksByTitle() {
+    val searchContents = ScannerInput.readNextLine("Enter the book title to search by: ")
+    val searchResults = authorAPI.searchBookByTitle(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No books found")
+    } else {
+        println(searchResults)
+    }
 }
 
-fun searchBooksByGenre(){
+fun searchBooksByGenre() {
     val searchContents = ValidateInput.readValidGenre("Enter the genre to search by: ")
     val searchResults = authorAPI.searchBookByGenre(searchContents)
     if (searchResults.isEmpty()) {
@@ -411,7 +418,7 @@ fun searchBooksByGenre(){
     }
 }
 
-fun searchBooksByLength(){
+fun searchBooksByLength() {
     val searchContents = ScannerInput.readNextInt("Enter a book length to search by: ")
     val searchResults = authorAPI.searchBookByLength(searchContents)
     if (searchResults.isEmpty()) {
@@ -450,24 +457,21 @@ fun ListBooksThatAreOwned() {
 
 fun listBooksByLength() {
     val author: Author? = askUserToChooseAuthor()
-    if (author!!.numberOfBooks() > 0){
+    if (author!!.numberOfBooks() > 0) {
         print(author.listBooksInOrderOfPageLength())
-    }
-    else {
+    } else {
         println("No books here, add some!!")
     }
 }
 
 fun listBooksByRating() {
     val author: Author? = askUserToChooseAuthor()
-    if (author!!.numberOfBooks() > 0){
+    if (author!!.numberOfBooks() > 0) {
         print(author.listBooksByRating())
-    }
-    else {
+    } else {
         println("No books here, add some!!")
     }
 }
-
 
 fun countAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to count by: ")
@@ -506,4 +510,3 @@ fun load() {
         System.err.println("Error reading from file: $e")
     }
 }
-
