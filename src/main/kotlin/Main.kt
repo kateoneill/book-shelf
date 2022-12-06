@@ -8,6 +8,13 @@ import utils.ValidateInput
 
 private val authorAPI = AuthorAPI(JSONSerializer(File("authors.json")))
 
+val magenta = "\u001b[35m"
+val cyan = "\u001b[36m"
+val yellow = "\u001b[33m"
+val blue = "\u001b[34m"
+val white = "\u001b[37m"
+val reset = "\u001b[0m"
+
 fun main(args: Array<String>) {
     entryScreen();
 }
@@ -23,44 +30,44 @@ fun entryScreen() {
 }
 fun entryscreendisplay(): Int {
     return ScannerInput.readNextInt("""
-      >        .---.               .---.        
+      >$cyan        .---.               .---.        
       >    .---|---|   .---.       |   |   .---.___ 
       > .--|===|   |---|___|.--.___|   |---|:::|   |--.
-      > |  | B | O | O | K | - | S | H | E | L | F |  |
+      > |  |$reset$magenta B$reset $cyan|$reset$magenta O$reset $cyan|$reset$magenta O$reset $cyan|$reset$magenta K$reset $cyan|$reset$magenta -$reset $cyan|$reset$magenta S$reset $cyan|$reset$magenta H$reset $cyan|$reset$magenta E$reset $cyan|$reset$magenta L$reset $cyan|$reset$magenta F$reset $cyan|  |
       > |  |   |   |===|   |===|   |   |   |:::|   |  |
       > |  |   |   |   |___|___|   |   |___|   |   |  |
       > |~~|===|---|===|~~~|~~~|%%%|   |---|:::|~~~|  |
-      > ^--^---'---^---^---^---^---^---'--_^---^---^--^
-      >    Press a number to delve into the books!
-      >    ->>  """.trimMargin(">"))
+      > ^--^---'---^---^---^---^---^---'--_^---^---^--^$reset
+      >   $magenta Press a number to delve into the books!
+      >    ->> $reset """.trimMargin(">"))
 }
 
 fun mainMenu() : Int {
     return ScannerInput.readNextInt("""
-          >       ___              __              __         ______
+          >$cyan       ___              __              __         ______
           >     / __ )____  ____  / /__      _____/ /_  ___  / / __/
           >    / __  / __ \/ __ \/ //_/_____/ ___/ __ \/ _ \/ / /_  
           >   / /_/ / /_/ / /_/ / ,< /_____(__  ) / / /  __/ / __/  
-          >  /_____/\____/\____/_/|_|     /____/_/ /_/\___/_/_/     
+          >  /_____/\____/\____/_/|_|     /____/_/ /_/\___/_/_/     $reset
           >                                                      
-          >                 _____________________________
-          >                /                            /  ,
-          >               /    TABLE OF CONTENTS       /  /
-          >              /   AUTHOR                   /  /
-          >             /     1. ADD AUTHOR          /  /
-          >            /     2. UPDATE AUTHOR       /  /
-          >           /     3. DELETE AUTHOR       /  /
-          >          /    BOOK                    /  /
-          >         /      4. ADD BOOK           /  /
-          >        /      5. UPDATE BOOK        /  /
-          >       /      6. DELETE BOOK        /  /
-          >      /      7. MARK OWN BOOK      /  /
-          >     /     Other                  /  /
-          >    /      8. Functions menu     /  /
-          >   /____________________________/  /
-          >  (____________________________(  /
+          >$blue                 _____________________________
+          >                /                           /  ,
+          >               /$reset  $cyan TABLE OF CONTENTS $reset      $blue/  /
+          >              /$reset  $cyan AUTHOR $reset                 $blue/  /
+          >             /$reset  $cyan 1. ADD AUTHOR  $reset         $blue/  /
+          >            /$reset  $cyan 2. UPDATE AUTHOR   $reset     $blue/  /
+          >           /$reset  $cyan 3. DELETE AUTHOR  $reset      $blue/  /
+          >          /$reset   $cyan BOOK  $reset                 $blue/  /
+          >         /$reset    $cyan 4. ADD BOOK $reset          $blue/  /
+          >        /$reset    $cyan 5. UPDATE BOOK  $reset      $blue/  /
+          >       /$reset    $cyan 6. DELETE BOOK $reset       $blue/  /
+          >      /$reset    $cyan 7. MARK OWN BOOK  $reset    $blue/  /
+          >     /$reset    $cyan Other    $reset             $blue/  /
+          >    /$reset   $cyan 8. Functions menu $reset     $blue/  /
+          >   /___________________________/  /
+          >  (___________________________(  /
                       
-          > Choose your chapter:""".trimMargin(">"))
+          > Choose your chapter:$reset""".trimMargin(">"))
 }
 
 
@@ -86,24 +93,31 @@ fun functionsMenu() {
     if (authorAPI.numberOfAuthors() > 0) {
         val option = ScannerInput.readNextInt(
             """
-                  >                            Press 1 to turn page ->
-                  >        __________________   __________________
-                  >    .-/|                  \ /                  |\-.
-                  >    ||||   Search Menu     |    List Menu      ||||
-                  >    ||||                   |                   ||||
-                  >    ||||   Search by :     |   List:           ||||
-                  >    ||||   2. First name   |   7. Authors      ||||
-                  >    ||||   3. Email        |   8. Author books ||||
-                  >    ||||   4. Book Title   |   9. By publisher ||||
-                  >    ||||   5. Book Genre   |   10. By surname  ||||
-                  >    ||||   6. Book Length  |   11. Owned books ||||
-                  >    ||||                   |   12. By Length   ||||
-                  >    ||||                   |   13. By Rating   ||||
-                  >    ||||                   |                   ||||
+                  > $cyan     ______                 __  _                 
+                  >     / ____/_  ______  _____/ /_(_)___  ____  _____
+                  >    / /_  / / / / __ \/ ___/ __/ / __ \/ __ \/ ___/
+                  >   / __/ / /_/ / / / / /__/ /_/ / /_/ / / / (__  ) 
+                  >  /_/    \__,_/_/ /_/\___/\__/_/\____/_/ /_/____/  $reset
+                  >  
+                  >  
+                  >   $magenta                         Press 1 to turn page ->$reset
+                  >  $blue      __________________   __________________
+                  >    .-/|                  \ /                  |\-.$reset
+                  >    $blue||||$reset   Search Menu     $blue|$reset    List Menu      $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset   Search by :     $blue|$reset   List:           $blue||||$reset
+                  >    $blue||||$reset   2. First name   $blue|$reset   7. Authors      $blue||||$reset
+                  >    $blue||||$reset   3. Email        $blue|$reset   8. Author books $blue||||$reset
+                  >    $blue||||$reset   4. Book Title   $blue|$reset   9. By publisher $blue||||$reset
+                  >    $blue||||$reset   5. Book Genre   $blue|$reset   10. By surname  $blue||||$reset
+                  >    $blue||||$reset   6. Book Length  $blue|$reset   11. Owned books $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset   12. By Length   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset   13. By Rating   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||
                   >    ||||__________________ | __________________||||
                   >    ||/===================\|/===================\||
                   >    `--------------------~___~-------------------''
-         > Choose your chapter: """.trimMargin(">")
+         > Choose your chapter: $reset""".trimMargin(">")
         )
 
         when (option) {
@@ -131,17 +145,17 @@ fun functionPage2() {
     if (authorAPI.numberOfAuthors() > 0) {
         val option = ScannerInput.readNextInt(
             """
-                  > <- Press 1 to turn back
-                  >        __________________   __________________
+                  > $magenta<- Press 1 to turn back $reset
+                  >  $blue      __________________   __________________
                   >    .-/|                  \ /                  |\-.
-                  >    ||||   Count Menu      |    Miscellaneous  ||||
-                  >    ||||                   |                   ||||
-                  >    ||||   Count :         |                   ||||
-                  >    ||||   2. All authors  |  5. Author        ||||
-                  >    ||||   3. By publisher |        dashboard  ||||
-                  >    ||||   4. By Surname   |                   ||||
-                  >    ||||                   |                   ||||
-                  >    ||||                   |                   ||||
+                  >    ||||$reset   Count Menu      $blue|$reset    Miscellaneous  $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset   Count :         $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset   2. All authors  $blue|$reset  5. Author        $blue||||$reset
+                  >    $blue||||$reset   3. By publisher $blue|$reset        dashboard  $blue||||$reset
+                  >    $blue||||$reset   4. By Surname   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||
                   >    ||||                   |                   ||||
                   >    ||||                   |                   ||||
                   >    ||||                   |                   ||||
@@ -149,7 +163,7 @@ fun functionPage2() {
                   >    ||||__________________ | __________________||||
                   >    ||/===================\|/===================\||
                   >    `--------------------~___~-------------------''
-         > Choose your chapter: """.trimMargin(">")
+         > Choose your chapter:$reset """.trimMargin(">")
         )
 
         when (option) {
