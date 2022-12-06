@@ -4,6 +4,9 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object EmailValidation {
+    /**
+     * Check if email entered is valid and fits the regular expression
+     */
     @JvmStatic
     fun isValidEmail(email: String?): Boolean {
         // This utility method uses the regex library.

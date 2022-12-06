@@ -2,6 +2,9 @@ package utils
 
 object BioValidation {
     // https://www.educative.io/answers/how-to-find-the-length-of-a-string-in-java
+    /**
+     * checking if biography entered is under 100 in length
+     */
     @JvmStatic
     fun isValidBio(bio: String?): Boolean {
         val maxLength = 100
