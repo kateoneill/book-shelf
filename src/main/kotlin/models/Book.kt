@@ -11,11 +11,11 @@ data class Book(
     var bookProgress: String
 ) {
     override fun toString(): String {
-        return "Book #${bookID}" +
-                "\n Title: ${bookTitle}(${bookRating}*)   ${bookLength} pages" +
-                "\n Genre: ${bookGenre}  Pace:${bookPace}" +
-                "\n Is book owned: ${isBookOwned} " +
-                "\n This book is ${bookProgress}" +
-                "\n ~~~~~~~~~~~~~~~~~~~~~~~~~"
+        return "Book #$bookID" +
+            "\n Title: $bookTitle($bookRating*)   $bookLength pages" +
+            "\n Genre: $bookGenre  Pace:$bookPace" +
+            "\n Is book owned: $isBookOwned " +
+            "\n This book is $bookProgress" +
+            "\n ~~~~~~~~~~~~~~~~~~~~~~~~~"
     }
 }

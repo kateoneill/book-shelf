@@ -38,7 +38,7 @@ object Utilities {
     @JvmStatic
     fun formatSetString(itemsToFormat: Set<Book>): String =
         itemsToFormat
-            .joinToString(separator = "\n") { book -> book.toString()  }
+            .joinToString(separator = "\n") { book -> book.toString() }
 
     /**
      * formatting book list to make it display more readable
