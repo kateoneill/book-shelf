@@ -50,22 +50,24 @@ fun mainMenu() : Int {
           >   / /_/ / /_/ / /_/ / ,< /_____(__  ) / / /  __/ / __/  
           >  /_____/\____/\____/_/|_|     /____/_/ /_/\___/_/_/     $reset
           >                                                      
-          >$blue                 _____________________________
-          >                /                           /  ,
-          >               /$reset  $cyan TABLE OF CONTENTS $reset      $blue/  /
-          >              /$reset  $cyan AUTHOR $reset                 $blue/  /
-          >             /$reset  $cyan 1. ADD AUTHOR  $reset         $blue/  /
-          >            /$reset  $cyan 2. UPDATE AUTHOR   $reset     $blue/  /
-          >           /$reset  $cyan 3. DELETE AUTHOR  $reset      $blue/  /
-          >          /$reset   $cyan BOOK  $reset                 $blue/  /
-          >         /$reset    $cyan 4. ADD BOOK $reset          $blue/  /
-          >        /$reset    $cyan 5. UPDATE BOOK  $reset      $blue/  /
-          >       /$reset    $cyan 6. DELETE BOOK $reset       $blue/  /
-          >      /$reset    $cyan 7. MARK OWN BOOK  $reset    $blue/  /
-          >     /$reset    $cyan Other    $reset             $blue/  /
-          >    /$reset   $cyan 8. Functions menu $reset     $blue/  /
-          >   /___________________________/  /
-          >  (___________________________(  /
+              >$blue                   _____________________________
+              >                   /                           /  ,
+              >                  /$reset  $cyan TABLE OF CONTENTS $reset      $blue/  /
+              >                 /$reset  $cyan AUTHOR $reset                 $blue/  /
+              >                /$reset  $cyan 1. ADD AUTHOR  $reset         $blue/  /
+              >               /$reset  $cyan 2. UPDATE AUTHOR   $reset     $blue/  /
+              >              /$reset  $cyan 3. DELETE AUTHOR  $reset      $blue/  /
+              >             /$reset   $cyan BOOK  $reset                 $blue/  /
+              >            /$reset    $cyan 4. ADD BOOK $reset          $blue/  /
+              >           /$reset    $cyan 5. UPDATE BOOK  $reset      $blue/  /
+              >          /$reset    $cyan 6. DELETE BOOK $reset       $blue/  /
+              >         /$reset    $cyan 7. MARK OWN BOOK  $reset    $blue/  /
+              >        /$reset    $cyan Other    $reset             $blue/  /
+              >       /$reset   $cyan 8. Functions menu $reset     $blue/  /
+              >     /$reset    $cyan 9. Save authors    $reset   $blue/  /
+              >    /$reset   $cyan 10. Load authors $reset      $blue/  /
+              >   /___________________________/  /
+              >  (___________________________(  /
                       
           > Choose your chapter:$reset""".trimMargin(">"))
 }
@@ -83,6 +85,8 @@ fun runMenu() {
             6 -> deleteBook()
             7 -> markBookAsOwned()
             8 -> functionsMenu()
+            9 -> save()
+            10 -> load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -483,6 +487,23 @@ fun getAuthorDashboard() {
         print(author.authorDashboard())
     } else {
         println("No books here, add some!!")
+    }
+}
+
+fun save() {
+    try {
+        authorAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+// load notes
+fun load() {
+    try {
+        authorAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
     }
 }
 

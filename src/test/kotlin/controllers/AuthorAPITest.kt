@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import kotlin.test.assertEquals
@@ -430,6 +431,86 @@ class AuthorAPITest {
         fun numberOfBooksMarkedOwnedCalculatedCorrectly() {
             assertEquals(1, populatedAuthors!!.numberOfBooksMarkedOwned())
             assertEquals(0, emptyAuthors!!.numberOfAuthors())
+        }
+    }
+
+    @Nested
+    inner class PersistenceTests {
+
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
+            // Saving an empty notes.XML file.
+            val storingNotes = AuthorAPI(XMLSerializer(File("notes.xml")))
+            storingNotes.store()
+
+            // Loading the empty notes.xml file into a new object
+            val loadedNotes = AuthorAPI(XMLSerializer(File("notes.xml")))
+            loadedNotes.load()
+
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            assertEquals(0, storingNotes.numberOfAuthors())
+            assertEquals(0, loadedNotes.numberOfAuthors())
+            assertEquals(storingNotes.numberOfAuthors(), loadedNotes.numberOfAuthors())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in XML doesn't loose data`() {
+            // Storing 3 notes to the notes.XML file.
+            val storingNotes = AuthorAPI(XMLSerializer(File("notes.xml")))
+            storingNotes.add(kazuoIshiguro!!)
+            storingNotes.add(SallyRooney!!)
+            storingNotes.add(ColsonWhitehead!!)
+            storingNotes.store()
+
+            // Loading notes.xml into a different collection
+            val loadedNotes = AuthorAPI(XMLSerializer(File("notes.xml")))
+            loadedNotes.load()
+
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            assertEquals(3, storingNotes.numberOfAuthors())
+            assertEquals(3, loadedNotes.numberOfAuthors())
+            assertEquals(storingNotes.numberOfAuthors(), loadedNotes.numberOfAuthors())
+            assertEquals(storingNotes.findAuthor(0), loadedNotes.findAuthor(0))
+            assertEquals(storingNotes.findAuthor(1), loadedNotes.findAuthor(1))
+            assertEquals(storingNotes.findAuthor(2), loadedNotes.findAuthor(2))
+        }
+
+        @Test
+        fun `saving and loading an empty collection in JSON doesn't crash app`() {
+            // Saving an empty notes.json file.
+            val storingNotes = AuthorAPI(JSONSerializer(File("notes.json")))
+            storingNotes.store()
+
+            // Loading the empty notes.json file into a new object
+            val loadedNotes = AuthorAPI(JSONSerializer(File("notes.json")))
+            loadedNotes.load()
+
+            // Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
+            assertEquals(0, storingNotes.numberOfAuthors())
+            assertEquals(0, loadedNotes.numberOfAuthors())
+            assertEquals(storingNotes.numberOfAuthors(), loadedNotes.numberOfAuthors())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in JSON doesn't loose data`() {
+            // Storing 3 notes to the notes.json file.
+            val storingNotes = AuthorAPI(JSONSerializer(File("notes.json")))
+            storingNotes.add(kazuoIshiguro!!)
+            storingNotes.add(SallyRooney!!)
+            storingNotes.add(ColsonWhitehead!!)
+            storingNotes.store()
+
+            // Loading notes.json into a different collection
+            val loadedNotes = AuthorAPI(JSONSerializer(File("notes.json")))
+            loadedNotes.load()
+
+            // Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
+            assertEquals(3, storingNotes.numberOfAuthors())
+            assertEquals(3, loadedNotes.numberOfAuthors())
+            assertEquals(storingNotes.numberOfAuthors(), loadedNotes.numberOfAuthors())
+            assertEquals(storingNotes.findAuthor(0), loadedNotes.findAuthor(0))
+            assertEquals(storingNotes.findAuthor(1), loadedNotes.findAuthor(1))
+            assertEquals(storingNotes.findAuthor(2), loadedNotes.findAuthor(2))
         }
     }
 }
