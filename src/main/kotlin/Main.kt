@@ -53,24 +53,25 @@ fun mainMenu(): Int {
           >   / /_/ / /_/ / /_/ / ,< /_____(__  ) / / /  __/ / __/  
           >  /_____/\____/\____/_/|_|     /____/_/ /_/\___/_/_/     $reset
           >                                                      
-              >$blue                   _____________________________
-              >                   /                           /  ,
-              >                  /$reset  $cyan TABLE OF CONTENTS $reset      $blue/  /
-              >                 /$reset  $cyan AUTHOR $reset                 $blue/  /
-              >                /$reset  $cyan 1. ADD AUTHOR  $reset         $blue/  /
-              >               /$reset  $cyan 2. UPDATE AUTHOR   $reset     $blue/  /
-              >              /$reset  $cyan 3. DELETE AUTHOR  $reset      $blue/  /
-              >             /$reset   $cyan BOOK  $reset                 $blue/  /
-              >            /$reset    $cyan 4. ADD BOOK $reset          $blue/  /
-              >           /$reset    $cyan 5. UPDATE BOOK  $reset      $blue/  /
-              >          /$reset    $cyan 6. DELETE BOOK $reset       $blue/  /
-              >         /$reset    $cyan 7. MARK OWN BOOK  $reset    $blue/  /
-              >        /$reset    $cyan Other    $reset             $blue/  /
-              >       /$reset   $cyan 8. Functions menu $reset     $blue/  /
-              >     /$reset    $cyan 9. Save authors    $reset   $blue/  /
-              >    /$reset   $cyan 10. Load authors $reset      $blue/  /
-              >   /___________________________/  /
-              >  (___________________________(  /
+              >$blue                     _____________________________
+              >                    /                           / ,
+              >                   /$reset  $cyan TABLE OF CONTENTS $reset      $blue/ /
+              >                  /$reset  $cyan AUTHOR $reset                 $blue/ /
+              >                 /$reset   $cyan 1. ADD AUTHOR  $reset        $blue/ /
+              >                /$reset   $cyan 2. UPDATE AUTHOR   $reset    $blue/ /
+              >               /$reset   $cyan 3. DELETE AUTHOR  $reset     $blue/ /
+              >              /$reset   $cyan BOOK  $reset                 $blue/ /
+              >             /$reset    $cyan 4. ADD BOOK $reset          $blue/ /
+              >            /$reset    $cyan 5. UPDATE BOOK  $reset      $blue/ /
+              >           /$reset    $cyan 6. DELETE BOOK $reset       $blue/ /
+              >          /$reset    $cyan 7. MARK OWN BOOK  $reset    $blue/ /
+              >         /$reset    $cyan Other    $reset             $blue/ /
+              >        /$reset    $cyan 8. Functions menu $reset    $blue/ /
+              >       /$reset    $cyan 9. Save authors    $reset   $blue/ /
+              >      /$reset   $cyan 10. Load authors $reset      $blue/ /
+              >     /$reset   $cyan 0. Exit app      $reset      $blue/ /
+              >    /___________________________/ /
+              >   (___________________________( /
                       
           > Choose your chapter:$reset""".trimMargin(">")
     )
@@ -213,12 +214,12 @@ fun updateAuthor() {
         // only ask the user to choose the author if author exists
         val id = ScannerInput.readNextInt("Enter the id of the author to update: ")
         if (authorAPI.findAuthor(id) != null) {
-            val firstName = ScannerInput.readNextLine("Enter authors first name:")
-            val surname = ScannerInput.readNextLine("Enter authors surname: ")
-            val biography = ValidateInput.readValidBio("Enter a short biography for author")
-            val email = ValidateInput.readValidEmail("Enter authors email:")
-            val publisher = ScannerInput.readNextLine("Enter authors publishing company:")
-            val website = ValidateInput.readValidURL("Enter authors website:")
+            val firstName = ScannerInput.readNextLine("Enter authors first name : ")
+            val surname = ScannerInput.readNextLine("Enter authors surname : ")
+            val biography = ValidateInput.readValidBio("Enter a short biography for author : ")
+            val email = ValidateInput.readValidEmail("Enter authors email : ")
+            val publisher = ScannerInput.readNextLine("Enter authors publishing company : ")
+            val website = ValidateInput.readValidURL("Enter authors website : ")
             // pass the index of the author and the new author details to AuthorAPI for updating and check for success.
             if (authorAPI.update(id, Author(0, firstName, surname, biography, email, publisher, website))) {
                 println("Update Successful")
@@ -261,7 +262,7 @@ private fun addBook() {
                         bookGenre = ValidateInput.readValidGenre("\t Enter book genre: "),
                         bookLength = ScannerInput.readNextInt("\t Enter book length: "),
                         bookPace = ValidateInput.readValidPace("\t Enter book pace (slow/medium/fast): "),
-                        bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished reading): ")
+                        bookProgress = ValidateInput.readValidProgress("\t Enter book progress (to-be read, currently reading, finished): ")
                     )
             )
         )
@@ -295,7 +296,7 @@ fun updateBook() {
             val newGenre = ValidateInput.readValidGenre("Enter new book genre: ")
             val newPace = ValidateInput.readValidPace("Enter new book pace(slow/medium/fast): ")
             val newLength = ScannerInput.readNextInt("Enter new book length: ")
-            val newProgress = ValidateInput.readValidProgress("Update book progress(to-be read, currently reading, finished reading): ")
+            val newProgress = ValidateInput.readValidProgress("Update book progress(to-be read, currently reading, finished): ")
             if (author.update(
                     book.bookID,
                     Book(

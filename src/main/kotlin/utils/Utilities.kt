@@ -38,24 +38,12 @@ object Utilities {
     @JvmStatic
     fun formatSetString(itemsToFormat: Set<Book>): String =
         itemsToFormat
-            .joinToString(separator = "\n") { book ->
-                "Book #${book.bookID}" +
-                    "\n Title: ${book.bookTitle}(${book.bookRating}*)   ${book.bookLength}" +
-                    "\n Genre: ${book.bookGenre}  Pace:${book.bookPace}" +
-                    "\n Is book owned: ${book.isBookOwned} " +
-                    "\n This book is ${book.bookProgress}"
-            }
+            .joinToString(separator = "\n") { book -> book.toString()  }
 
     /**
      * formatting book list to make it display more readable
      */
     fun formatBookListString(notesToFormat: List<Book>): String =
         notesToFormat
-            .joinToString(separator = "\n") { book ->
-                "\tBook #${book.bookID}" +
-                    "\n  \tTitle: ${book.bookTitle}(${book.bookRating}*)   ${book.bookLength} pages" +
-                    "\n  \tGenre: ${book.bookGenre}  Pace:${book.bookPace}" +
-                    "\n  \tIs book owned: ${book.isBookOwned} " +
-                    "\n  \tThis book is ${book.bookProgress}\n"
-            }
+            .joinToString(separator = "\n") { book -> book.toString() }
 }

@@ -130,12 +130,12 @@ data class Author(
 
     fun authorDashboard(): String {
         return """
-    >                    Dashboard for $firstName $surname
-    >                    ---------------------------------
+    >           Dashboard for $firstName $surname
+    >         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     > $biography
     > E-mail: $email
     > Site: $website
-    > ----------------------------------------------------------------------------------------
+    > ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     > 
     > Number of books: ${numberOfBooks()}
     > 

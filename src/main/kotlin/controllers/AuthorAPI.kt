@@ -3,6 +3,7 @@ package controllers
 import models.Author
 import persistence.Serializer
 import utils.Utilities.formatListString
+import utils.Utilities.formatSetString
 import java.util.ArrayList
 
 class AuthorAPI(serializerType: Serializer) {
