@@ -8,34 +8,66 @@ import utils.ValidateInput
 
 private val authorAPI = AuthorAPI(JSONSerializer(File("authors.json")))
 
+val magenta = "\u001b[35m"
+val cyan = "\u001b[36m"
+val yellow = "\u001b[33m"
+val blue = "\u001b[34m"
+val white = "\u001b[37m"
+val reset = "\u001b[0m"
+
 fun main(args: Array<String>) {
-    runMenu();
+    entryScreen();
+}
+
+fun entryScreen() {
+    do {
+        val option = entryscreendisplay()
+        when (option) {
+            1 -> runMenu()
+            else -> runMenu()
+        }
+    } while (true)
+}
+fun entryscreendisplay(): Int {
+    return ScannerInput.readNextInt("""
+      >$cyan        .---.               .---.        
+      >    .---|---|   .---.       |   |   .---.___ 
+      > .--|===|   |---|___|.--.___|   |---|:::|   |--.
+      > |  |$reset$magenta B$reset $cyan|$reset$magenta O$reset $cyan|$reset$magenta O$reset $cyan|$reset$magenta K$reset $cyan|$reset$magenta -$reset $cyan|$reset$magenta S$reset $cyan|$reset$magenta H$reset $cyan|$reset$magenta E$reset $cyan|$reset$magenta L$reset $cyan|$reset$magenta F$reset $cyan|  |
+      > |  |   |   |===|   |===|   |   |   |:::|   |  |
+      > |  |   |   |   |___|___|   |   |___|   |   |  |
+      > |~~|===|---|===|~~~|~~~|%%%|   |---|:::|~~~|  |
+      > ^--^---'---^---^---^---^---^---'--_^---^---^--^$reset
+      >   $magenta Press a number to delve into the books!
+      >    ->> $reset """.trimMargin(">"))
 }
 
 fun mainMenu() : Int {
     return ScannerInput.readNextInt("""
-          > ----------------------------------
-          > |  Author MENU                   |
-          > |   1) Add an author             |
-          > |   2) List all authors          |
-          > |   3) Update author             |
-          > |   4) Delete an author          |
-          > ----------------------------------
-          > |  Book MENU                     |
-          > |   5) Add a book to author      |
-          > |   6) Update book               |
-          > |   7) Delete book               |
-          > |   8) List books                |
-          > |   9) Mark book as owned        |
-          > ----------------------------------
-          > |   10) Search menu              |
-          > |   11) List menu                |
-          > |   12) Count menu               |
-          > |   13) Author Dashboard         |
-          > ----------------------------------
-          > |   0) Exit                      |
-          > ----------------------------------
-          > Choose:""".trimMargin(">"))
+          >$cyan       ___              __              __         ______
+          >     / __ )____  ____  / /__      _____/ /_  ___  / / __/
+          >    / __  / __ \/ __ \/ //_/_____/ ___/ __ \/ _ \/ / /_  
+          >   / /_/ / /_/ / /_/ / ,< /_____(__  ) / / /  __/ / __/  
+          >  /_____/\____/\____/_/|_|     /____/_/ /_/\___/_/_/     $reset
+          >                                                      
+          >$blue                 _____________________________
+          >                /                           /  ,
+          >               /$reset  $cyan TABLE OF CONTENTS $reset      $blue/  /
+          >              /$reset  $cyan AUTHOR $reset                 $blue/  /
+          >             /$reset  $cyan 1. ADD AUTHOR  $reset         $blue/  /
+          >            /$reset  $cyan 2. UPDATE AUTHOR   $reset     $blue/  /
+          >           /$reset  $cyan 3. DELETE AUTHOR  $reset      $blue/  /
+          >          /$reset   $cyan BOOK  $reset                 $blue/  /
+          >         /$reset    $cyan 4. ADD BOOK $reset          $blue/  /
+          >        /$reset    $cyan 5. UPDATE BOOK  $reset      $blue/  /
+          >       /$reset    $cyan 6. DELETE BOOK $reset       $blue/  /
+          >      /$reset    $cyan 7. MARK OWN BOOK  $reset    $blue/  /
+          >     /$reset    $cyan Other    $reset             $blue/  /
+          >    /$reset   $cyan 8. Functions menu $reset     $blue/  /
+          >   /___________________________/  /
+          >  (___________________________(  /
+                      
+          > Choose your chapter:$reset""".trimMargin(">"))
 }
 
 
@@ -44,22 +76,107 @@ fun runMenu() {
         val option = mainMenu()
         when (option) {
             1 -> addAuthor()
-            2 -> listAllAuthors()
-            3 -> updateAuthor()
-            4 -> deleteAuthor()
-            5 -> addBook()
-            6 -> updateBook()
-            7 -> deleteBook()
-            8 -> listAuthorsBooks()
-            9 -> markBookAsOwned()
-            10 -> searchMenu()
-            11 -> listMenu()
-            12 -> countMenu()
-            13 -> getAuthorDashboard()
+            2 -> updateAuthor()
+            3 -> deleteAuthor()
+            4 -> addBook()
+            5 -> updateBook()
+            6 -> deleteBook()
+            7 -> markBookAsOwned()
+            8 -> functionsMenu()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
     }while (true)
+}
+
+fun functionsMenu() {
+    if (authorAPI.numberOfAuthors() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  > $cyan     ______                 __  _                 
+                  >     / ____/_  ______  _____/ /_(_)___  ____  _____
+                  >    / /_  / / / / __ \/ ___/ __/ / __ \/ __ \/ ___/
+                  >   / __/ / /_/ / / / / /__/ /_/ / /_/ / / / (__  ) 
+                  >  /_/    \__,_/_/ /_/\___/\__/_/\____/_/ /_/____/  $reset
+                  >  
+                  >  
+                  >   $magenta                         Press 1 to turn page ->$reset
+                  >  $blue      __________________   __________________
+                  >    .-/|                  \ /                  |\-.$reset
+                  >    $blue||||$reset   Search Menu     $blue|$reset    List Menu      $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset   Search by :     $blue|$reset   List:           $blue||||$reset
+                  >    $blue||||$reset   2. First name   $blue|$reset   7. Authors      $blue||||$reset
+                  >    $blue||||$reset   3. Email        $blue|$reset   8. Author books $blue||||$reset
+                  >    $blue||||$reset   4. Book Title   $blue|$reset   9. By publisher $blue||||$reset
+                  >    $blue||||$reset   5. Book Genre   $blue|$reset   10. By surname  $blue||||$reset
+                  >    $blue||||$reset   6. Book Length  $blue|$reset   11. Owned books $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset   12. By Length   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset   13. By Rating   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||
+                  >    ||||__________________ | __________________||||
+                  >    ||/===================\|/===================\||
+                  >    `--------------------~___~-------------------''
+         > Choose your chapter: $reset""".trimMargin(">")
+        )
+
+        when (option) {
+            1 -> functionPage2()
+            2 -> searchAuthorsByFirstName()
+            3 -> searchAuthorsByEmail()
+            4 -> searchBooksByTitle()
+            5 -> searchBooksByGenre()
+            6 -> searchBooksByLength()
+            7 -> listAllAuthors()
+            8 -> listAuthorsBooks()
+            9 -> listAuthorsByPublisher()
+            10 -> listAuthorsBySurname()
+            11 -> ListBooksThatAreOwned()
+            12 -> listBooksByLength()
+            13 -> listBooksByRating()
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - There are no authors")
+    }
+}
+
+fun functionPage2() {
+    if (authorAPI.numberOfAuthors() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  > $magenta<- Press 1 to turn back $reset
+                  >  $blue      __________________   __________________
+                  >    .-/|                  \ /                  |\-.
+                  >    ||||$reset   Count Menu      $blue|$reset    Miscellaneous  $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset   Count :         $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset   2. All authors  $blue|$reset  5. Author        $blue||||$reset
+                  >    $blue||||$reset   3. By publisher $blue|$reset        dashboard  $blue||||$reset
+                  >    $blue||||$reset   4. By Surname   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||$reset
+                  >    $blue||||$reset                   $blue|$reset                   $blue||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||                   |                   ||||
+                  >    ||||__________________ | __________________||||
+                  >    ||/===================\|/===================\||
+                  >    `--------------------~___~-------------------''
+         > Choose your chapter:$reset """.trimMargin(">")
+        )
+
+        when (option) {
+            1 -> functionsMenu()
+            2 -> countAllAuthors()
+            3 -> countAuthorsByPublisher()
+            4 -> countAuthorsBySurname()
+            5 -> getAuthorDashboard()
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - There are no authors")
+    }
 }
 
 
@@ -249,32 +366,6 @@ fun markBookAsOwned() {
     }
 }
 
-fun searchMenu() {
-    if (authorAPI.numberOfAuthors() > 0) {
-        val option = ScannerInput.readNextInt(
-            """
-                  > -------------------------------------------------
-                  > |   1) Search authors by first name             |
-                  > |   2) Search authors by email                  |
-                  > |   3) Search books by title                    |
-                  > |   4) Search books by genre                    |
-                  > |   5) Search books by length                   |
-                  > -------------------------------------------------
-         > ==>> """.trimMargin(">")
-        )
-
-        when (option) {
-            1 -> searchAuthorsByFirstName()
-            2 -> searchAuthorsByEmail()
-            3 -> searchBooksByTitle()
-            4 -> searchBooksByGenre()
-            5 -> searchBooksByLength()
-            else -> println("Invalid option entered: " + option)
-        }
-    } else {
-        println("Option Invalid - There are no authors")
-    }
-}
 
 fun searchAuthorsByFirstName(){
     val searchName = ScannerInput.readNextLine("Enter first name to search by: ")
@@ -326,33 +417,6 @@ fun searchBooksByLength(){
     }
 }
 
-
-fun listMenu() {
-    if (authorAPI.numberOfAuthors() > 0) {
-        val option = ScannerInput.readNextInt(
-            """
-                  > -------------------------------------------------
-                  > |   1) List by publisher                        |
-                  > |   2) List by surname                          |
-                  > |   3) List books that are owned                |
-                  > |   4) List books by length                     |
-                  > |   5) List books by rating                     |
-                  > -------------------------------------------------
-         > ==>> """.trimMargin(">")
-        )
-
-        when (option) {
-            1 -> listAuthorsByPublisher()
-            2 -> listAuthorsBySurname()
-            3 -> ListBooksThatAreOwned()
-            4 -> listBooksByLength()
-            5 -> listBooksByRating()
-            else -> println("Invalid option entered: " + option)
-        }
-    } else {
-        println("Option Invalid - There are no authors")
-    }
-}
 fun listAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to list by: ")
     val searchResults = authorAPI.listAuthorsByPublisher(publisher)
@@ -400,28 +464,6 @@ fun listBooksByRating() {
     }
 }
 
-fun countMenu() {
-    if (authorAPI.numberOfAuthors() > 0) {
-        val option = ScannerInput.readNextInt(
-            """
-                  > -------------------------------------------------
-                  > |   1) Count all authors                        |
-                  > |   2) Count authors by publisher               |
-                  > |   3) Count authors by surname                 |
-                  > -------------------------------------------------
-         > ==>> """.trimMargin(">")
-        )
-
-        when (option) {
-            1 -> countAllAuthors()
-            2 -> countAuthorsByPublisher()
-            3 -> countAuthorsBySurname()
-            else -> println("Invalid option entered: " + option)
-        }
-    } else {
-        println("Option Invalid - There are no authors")
-    }
-}
 
 fun countAuthorsByPublisher() {
     val publisher = ScannerInput.readNextLine("Enter publisher to count by: ")
