@@ -16,21 +16,46 @@ data class Author(
     private var lastBookId = 0
     private fun getBookId() = lastBookId++
 
+    /**
+     * `add book to author`
+     *
+     * @return book that's been added
+     */
     fun addBook(book: Book): Boolean {
         book.bookID = getBookId()
         return books.add(book)
     }
 
+    /**
+     *  count size of book array
+     *
+     * @return number of books for author
+     */
     fun numberOfBooks() = books.size
 
+    /**
+     * find author
+     *
+     * @return book with corresponding ID
+     */
     fun findOne(id: Int): Book? {
         return books.find { book -> book.bookID == id }
     }
 
+    /**
+     * delete book from author
+     *
+     * @return book that's been deleted
+     */
     fun delete(id: Int): Boolean {
         return books.removeIf { book -> book.bookID == id }
     }
 
+    /**
+     * update book for author
+     *
+     * @return true if book has been updated
+     */
     fun update(id: Int, newBook: Book): Boolean {
         val foundBook = findOne(id)
 
@@ -51,9 +76,21 @@ data class Author(
         return false
     }
 
+    /**
+     * give list of books for author
+     *
+     * @return list of books
+     */
+
     fun listBooks() =
         if (books.isEmpty()) "\tNO BOOKS ADDED"
         else Utilities.formatSetString(books)
+
+    /**
+     * check if book is marked as owned or not
+     *
+     * @return true if book is owned
+     */
 
     fun checkBookOwnershipStatus(): Boolean {
         if (books.isNotEmpty()) {
@@ -66,15 +103,30 @@ data class Author(
         return true // a note with empty items can be archived, or all items are complete
     }
 
+    /**
+     * list books by page length smallest to largest
+     *
+     * @return list of books in page length order
+     */
     fun listBooksInOrderOfPageLength(): String {
         return if (books.isEmpty()) "No books stored"
         else Utilities.formatBookListString(books.sortedBy { books -> books.bookLength })
     }
 
+    /**
+     * list books by rating
+     *
+     * @return books in rating order highest to lowest
+     */
+
     fun listBooksByRating(): String {
         return if (books.isEmpty()) "No books stored"
         else Utilities.formatBookListString(books.sortedByDescending { books -> books.bookRating })
     }
+
+    /**
+     * print an author dashboard
+     */
 
     fun authorDashboard(): String {
         return """
@@ -96,6 +148,11 @@ data class Author(
     """.trimMargin(">")
     }
 
+    /**
+     * gather genres for author
+     *
+     * @return all genres from books written by given author
+     */
     fun genres(): String {
         var listOfGenres = ""
         for (book in books) {
@@ -109,6 +166,11 @@ data class Author(
         else listOfGenres
     }
 
+    /**
+     * combines book with some metadata in a string
+     *
+     * @return string with bookProgress, title, pace and star rating
+     */
     fun bookRating(): String {
         var bookDetails = ""
         for (book in books) {
