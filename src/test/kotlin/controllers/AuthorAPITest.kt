@@ -33,7 +33,7 @@ class AuthorAPITest {
         SallyRooney = Author(0, "Sally", "Rooney", "Sally Rooney is an Irish author and screenwriter.", "srooney@email.com", "Penguin", "https://www.sally.com")
         TaylorJenkinsReid = Author(0, "Taylor","Jenkins Reid", "Taylor Jenkins Reid is an American author most known for her novel The Seven Husbands of Evelyn Hugo", "tjreidbooks@email.com", "Penguin", "https://www.taylorjenkinsreid.com")
         StephenKing = Author(0, "Stephen", "King", "Stephen King is an American author of horror, suspense, crime, science-fiction, and fantasy novels", "sking@email.com", "Simon & Schuster", "http://www.stephenking.com")
-        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@gmail.com", "Simon & Schuster", "https://www.akwa.com")
+        akwaekeEmezi = Author(0, "Akwaeke","Emezi", "Akwaeke Emezi is a Nigerian fiction writer and video artist", "aemeziauthor@email.com", "Simon & Schuster", "https://www.akwa.com")
         ColsonWhitehead = Author(0, "Colson", "Whitehead", "Arch Colson Chipp Whitehead is an American novelist. He is the author of eight novels.", "cwhitehead@email.com", "Little, Brown and Company", "http://www.colsonwhitehead.com")
         NeverGo = Book(0, "Never let me go", 5, "Literary fiction", "medium", true, 120, "currently reading")
         ArtistWorld = Book(0, "An artist of the floating world",4, "Mystery", "fast", false, 200,"finished")

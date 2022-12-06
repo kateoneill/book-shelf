@@ -222,5 +222,14 @@ class AuthorTest {
             assertEquals(0, SallyRooney!!.numberOfBooks())
             assertTrue(SallyRooney!!.bookRating().lowercase().contains("no books"))
         }
+
+        @Test
+        fun `getAuthorDashboard produces author information`(){
+            assertEquals(6, kazuoIshiguro!!.numberOfBooks())
+            val notesString = kazuoIshiguro!!.authorDashboard().lowercase()
+            assertTrue(notesString.contains("kazuo"))
+            assertTrue(notesString.contains("obe"))
+            assertTrue(notesString.contains("kishiguro@email.com"))
+        }
     }
 }
